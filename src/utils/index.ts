@@ -29,3 +29,9 @@ export function formatCPM(cpm: number): string {
 export function getAvailableBudget(spent: number, total: number): number {
   return total - spent
 }
+
+export function withBasePath(path?: string): string | undefined {
+  if (!path) return path
+  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? ""
+  return path.startsWith("http") || path.startsWith(base) ? path : `${base}${path}`
+}

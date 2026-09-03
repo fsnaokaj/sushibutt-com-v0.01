@@ -1,4 +1,5 @@
 import { Campaign } from "@/types"
+import { withBasePath } from "@/utils"
 
 export const campaigns: Campaign[] = [
   {
@@ -439,6 +440,12 @@ export const campaigns: Campaign[] = [
     thumbnailUrl: "/thumbnails/nda.svg"
   }
 ]
+
+for (const campaign of campaigns) {
+  campaign.bannerUrl = withBasePath(campaign.bannerUrl)
+  campaign.thumbnailUrl = withBasePath(campaign.thumbnailUrl)
+  campaign.agencyLogoUrl = withBasePath(campaign.agencyLogoUrl)
+}
 
 export const featuredCampaigns = campaigns.filter(c => c.featured)
 
