@@ -2,7 +2,9 @@
 
 SushiButt.com v0.01. A clipping & UGC campaign marketplace built with Next.js 14, TypeScript, and Tailwind CSS.
 
-**Live:** GitHub repo [`fsnaokaj/sushibutt-com-v0.01`](https://github.com/fsnaokaj/sushibutt-com-v0.01)
+**Live:** https://fsnaokaj.github.io/sushibutt-com-v0.01/
+
+**Repo:** https://github.com/fsnaokaj/sushibutt-com-v0.01
 
 ## Tech Stack
 
