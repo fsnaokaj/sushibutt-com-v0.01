@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="10" fill="#ec4899"/>
-  <text x="16" y="21" text-anchor="middle" font-size="16">🍣</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="SushiButt">
+  <rect width="32" height="32" rx="8" fill="#ec4899"/>
+  <ellipse cx="16" cy="20.2" rx="10.2" ry="6.2" fill="#fff7fb"/>
+  <ellipse cx="16" cy="19.4" rx="9.4" ry="5.2" fill="#ffe4ef"/>
+  <path d="M6.8 14.2c1.2-4.2 4.4-6.6 9.2-6.6s8 2.4 9.2 6.6c.2 1-1.4 2.2-4.2 2.8-2.4.5-5 .5-7.4 0-2.8-.6-4.4-1.8-4.2-2.8z" fill="#fb7185"/>
+  <path d="M8.4 13.2c.3-1.6 1.2-2.4 2.6-2.4.4 0 .5 1.4.1 2.4-.4 1-1.2 1.5-2 .8-.5-.4-.8-.6-.7-.8z" fill="#fff" opacity=".85"/>
+  <path d="M14.2 11.6c.2-1.4 1-2.1 2.2-2.1.4 0 .5 1.2 0 2.2-.4.9-1.1 1.3-1.8.6-.4-.3-.5-.5-.4-.7z" fill="#fff" opacity=".8"/>
+  <circle cx="24.4" cy="22.8" r="2.1" fill="#4ade80"/>
 </svg>
