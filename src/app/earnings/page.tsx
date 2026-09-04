@@ -1,105 +1,66 @@
 "use client"
 
-import { Sidebar } from "@/components/layout/Sidebar"
-import { TrendingUp, DollarSign, Eye, Award } from "lucide-react"
-import { campaigns } from "@/data/campaigns"
-import { formatViews } from "@/utils"
-
-// Mock personal earnings data — wire up to real backend later
-const myStats = {
-  totalEarned: 4218.32,
-  pendingPayout: 612.40,
-  totalViews: 2840000,
-  activeCampaigns: 6
-}
-
-const myCampaigns = campaigns.slice(0, 6).map((c, i) => ({
-  ...c,
-  myViews: [669567, 290340, 153927, 98200, 75600, 41200][i],
-  myEarnings: [1339.13, 580.68, 307.85, 196.4, 113.4, 41.2][i]
-}))
+import { AppShell } from "@/components/layout/AppShell"
+import { useAllCampaigns, useAppStore } from "@/hooks/useStore"
+import { useI18n } from "@/i18n/LanguageProvider"
+import { campaignTitle, rateLabel } from "@/utils/campaign"
+import Link from "next/link"
 
 export default function EarningsPage() {
+  const { t } = useI18n()
+  const user = useAppStore((s) => s.user)
+  const all = useAllCampaigns()
+  const mine = all.filter((c) => user?.joinedIds.includes(c.id))
+
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar />
-      <main className="flex-1 overflow-auto">
-        <div className="max-w-5xl mx-auto px-4 py-6 space-y-6">
-          <div>
-            <h1 className="text-2xl font-bold">My Earnings</h1>
-            <p className="text-muted-foreground text-sm mt-1">
-              Track your views, payouts, and campaign performance.
-            </p>
-          </div>
-
-          {/* Stat cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <StatCard
-              icon={<DollarSign className="w-4 h-4" />}
-              label="Total earned"
-              value={`$${myStats.totalEarned.toLocaleString(undefined, { minimumFractionDigits: 2 })}`}
-            />
-            <StatCard
-              icon={<TrendingUp className="w-4 h-4" />}
-              label="Pending payout"
-              value={`$${myStats.pendingPayout.toLocaleString(undefined, { minimumFractionDigits: 2 })}`}
-            />
-            <StatCard
-              icon={<Eye className="w-4 h-4" />}
-              label="Total views"
-              value={formatViews(myStats.totalViews)}
-            />
-            <StatCard
-              icon={<Award className="w-4 h-4" />}
-              label="Active campaigns"
-              value={myStats.activeCampaigns.toString()}
-            />
-          </div>
-
-          {/* Campaign earnings table */}
-          <div className="border border-border rounded-xl overflow-hidden">
-            <div className="px-4 py-3 border-b border-border bg-secondary/30">
-              <h2 className="font-semibold text-sm">Earnings by campaign</h2>
+    <AppShell>
+      <div className="max-w-5xl mx-auto px-4 py-6 space-y-6">
+        <div>
+          <h1 className="text-2xl font-extrabold">{t("earnings.title")}</h1>
+          <p className="text-sm text-muted-foreground">{t("earnings.subtitle")}</p>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {[
+            [t("earnings.earned"), "$0.00"],
+            [t("earnings.pending"), "$0.00"],
+            [t("earnings.views"), "0"],
+            [t("earnings.points"), `${user?.points ?? 0} ★`]
+          ].map(([label, value]) => (
+            <div key={label} className="bg-white border rounded-2xl p-4">
+              <p className="text-xs text-muted-foreground">{label}</p>
+              <p className="text-2xl font-extrabold">{value}</p>
             </div>
+          ))}
+        </div>
+        <div className="border rounded-3xl overflow-hidden bg-white">
+          <div className="px-4 py-3 border-b bg-secondary/50 font-extrabold text-sm">{t("earnings.byCampaign")}</div>
+          {mine.length === 0 ? (
+            <p className="p-6 text-sm text-muted-foreground">
+              {t("earnings.none")}{" "}
+              <Link href="/" className="text-primary font-bold">{t("nav.campaigns")}</Link>
+            </p>
+          ) : (
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-border text-muted-foreground text-xs">
-                  <th className="text-left px-4 py-2 font-medium">Campaign</th>
-                  <th className="text-left px-4 py-2 font-medium">Agency</th>
-                  <th className="text-right px-4 py-2 font-medium">Views</th>
-                  <th className="text-right px-4 py-2 font-medium">CPM</th>
-                  <th className="text-right px-4 py-2 font-medium">Earned</th>
+                <tr className="text-xs text-muted-foreground">
+                  <th className="text-left px-4 py-2">{t("earnings.campaign")}</th>
+                  <th className="text-left px-4 py-2">{t("earnings.agency")}</th>
+                  <th className="text-right px-4 py-2">{t("earnings.cpm")}</th>
                 </tr>
               </thead>
               <tbody>
-                {myCampaigns.map((c) => (
-                  <tr key={c.id} className="border-b border-border last:border-0 hover:bg-secondary/30 transition-colors">
-                    <td className="px-4 py-3 font-medium">{c.title}</td>
+                {mine.map((c) => (
+                  <tr key={c.id} className="border-t">
+                    <td className="px-4 py-3 font-bold">{campaignTitle(c, t)}</td>
                     <td className="px-4 py-3 text-muted-foreground">{c.agency}</td>
-                    <td className="px-4 py-3 text-right">{formatViews(c.myViews)}</td>
-                    <td className="px-4 py-3 text-right text-muted-foreground">${c.cpm}/1K</td>
-                    <td className="px-4 py-3 text-right font-semibold">
-                      ${c.myEarnings.toLocaleString(undefined, { minimumFractionDigits: 2 })}
-                    </td>
+                    <td className="px-4 py-3 text-right">{rateLabel(c, t)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          </div>
+          )}
         </div>
-      </main>
-    </div>
-  )
-}
-
-function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
-  return (
-    <div className="bg-secondary/50 rounded-xl p-4">
-      <div className="flex items-center gap-1.5 text-muted-foreground mb-2">
-        {icon}
-        <span className="text-xs">{label}</span>
       </div>
-      <p className="text-2xl font-bold">{value}</p>
-    </div>
+    </AppShell>
   )
 }

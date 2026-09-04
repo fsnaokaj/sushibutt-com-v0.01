@@ -1,4 +1,4 @@
-import { campaigns } from "@/data/campaigns"
+import { seedCampaigns as campaigns } from "@/data/campaigns"
 import { CampaignDetail } from "./CampaignDetail"
 
 export function generateStaticParams() {

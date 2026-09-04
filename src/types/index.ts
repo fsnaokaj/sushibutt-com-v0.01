@@ -1,4 +1,3 @@
-// Campaign types
 export type ContentType = "Clipping" | "UGC"
 export type Category =
   | "All Categories"
@@ -6,14 +5,9 @@ export type Category =
   | "Gaming"
   | "Entertainment"
   | "Sports"
-  | "Education"
   | "Lifestyle"
-  | "Technology"
-  | "Product"
-  | "Personal brand"
-
+  | "Meme"
 export type Platform = "youtube" | "tiktok" | "instagram" | "twitter" | "facebook"
-
 export type SortBy =
   | "Featured"
   | "Newest"
@@ -22,10 +16,12 @@ export type SortBy =
   | "Highest CPM"
   | "Most Paid Out"
   | "Most Creators"
+export type RateType = "cpm" | "fixed" | "points"
+export type UserRole = "clipper" | "brand"
 
 export interface Earnings {
   platform: Platform
-  cpm: number // $ per 1K views
+  cpm: number
   min?: number
   max?: number
 }
@@ -33,37 +29,38 @@ export interface Earnings {
 export interface TopEarner {
   username: string
   views: number
-  avatarUrl?: string
+  points: number
+  avatar?: string
   rank: "gold" | "silver" | "bronze"
 }
 
 export interface Campaign {
   id: string
-  title: string
+  customTitle?: string
   agency: string
   agencyVerified: boolean
   agencyLogoUrl?: string
-  bannerUrl?: string // path to /public/banners/
-  thumbnailUrl?: string // path to /public/thumbnails/
+  bannerUrl?: string
+  thumbnailUrl?: string
   category: Category
   contentType: ContentType
   platforms: Platform[]
-  cpm: number // $ per 1K views
+  rateType: RateType
+  cpm: number
+  fixedRate?: number
+  prizePool?: number
   budgetTotal: number
   budgetSpent: number
   creatorCount: number
-  postedAgo: string // e.g. "2d", "1mo"
-  description?: string
+  postedAgo: string
   featured?: boolean
   approvalRate?: number
   earnings?: Earnings[]
   topEarners?: TopEarner[]
   totalViews?: number
-  requirements?: string
   resourcesUrl?: string
 }
 
-// Filter/sort state
 export interface FilterState {
   search: string
   category: Category
@@ -72,8 +69,19 @@ export interface FilterState {
   sortBy: SortBy
 }
 
-// Modal state
 export interface ModalState {
   open: boolean
   campaign: Campaign | null
 }
+
+export interface User {
+  id: string
+  name: string
+  email: string
+  role: UserRole
+  points: number
+  joinedIds: string[]
+  createdCampaigns: Campaign[]
+}
+
+export type Locale = "en" | "ja" | "ko" | "zh" | "ru" | "es" | "nl" | "fr" | "it"
