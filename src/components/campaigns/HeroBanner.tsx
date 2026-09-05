@@ -7,7 +7,7 @@ import { Campaign } from "@/types"
 import { cn } from "@/utils"
 import { useAppStore } from "@/hooks/useStore"
 import { useI18n } from "@/i18n/LanguageProvider"
-import { campaignTitle, rateLabel } from "@/utils/campaign"
+import { campaignTitle, campaignCopy, rateLabel } from "@/utils/campaign"
 
 export function HeroBanner({ campaigns }: { campaigns: Campaign[] }) {
   const [current, setCurrent] = useState(0)
@@ -40,8 +40,8 @@ export function HeroBanner({ campaigns }: { campaigns: Campaign[] }) {
           {c.agency} ★
         </div>
         <h2 className="text-white text-3xl font-extrabold mb-1 drop-shadow">{campaignTitle(c, t)}</h2>
-        <p className="text-white/85 text-sm mb-4 font-medium">
-          {t("category." + c.category)} · {rateLabel(c, t)} · ${(c.budgetTotal / 1000).toFixed(0)}K {t("campaign.budget")}
+        <p className="text-white/85 text-sm mb-2 font-medium line-clamp-2">
+          {campaignCopy(c, "description", t) || t("home.heroMeta", { category: t("category." + c.category), rate: rateLabel(c, t) })}
         </p>
         <button
           onClick={() => openModal(c)}

@@ -4,6 +4,8 @@ import { AppShell } from "@/components/layout/AppShell"
 import { useAppStore } from "@/hooks/useStore"
 import { useI18n } from "@/i18n/LanguageProvider"
 import Link from "next/link"
+import { beltTag } from "@/data/leaderboard"
+import { PayBanner } from "@/components/ui/PayBanner"
 
 export default function ProfilePage() {
   const { t } = useI18n()
@@ -23,20 +25,26 @@ export default function ProfilePage() {
           <div className="grid sm:grid-cols-2 gap-3">
             <div className="border rounded-2xl p-4 bg-white">
               <p className="text-xs text-muted-foreground">{t("profile.role")}</p>
-              <p className="font-extrabold">{t(`auth.${user.role}`)}</p>
+              <div className="flex flex-wrap gap-1.5 mt-1">
+                {user.roles.map((r) => (
+                  <span key={r} className="text-xs font-extrabold px-2 py-1 rounded-full bg-secondary">{t(`roles.${r}`)}</span>
+                ))}
+              </div>
             </div>
             <div className="border rounded-2xl p-4 bg-white">
               <p className="text-xs text-muted-foreground">{t("profile.points")}</p>
               <p className="font-extrabold text-primary">{user.points} ★</p>
             </div>
+            <div className="border rounded-2xl p-4 bg-white sm:col-span-2">
+              <p className="text-xs text-muted-foreground">{t("profile.publicTag")}</p>
+              <p className="font-mono font-extrabold">{beltTag(user.id)}</p>
+              <p className="text-xs text-muted-foreground mt-1">{t("profile.publicHint")}</p>
+            </div>
           </div>
         )}
         <div>
           <h2 className="font-extrabold mb-3">{t("profile.payouts")}</h2>
-          <div className="border rounded-2xl p-4 bg-white space-y-2 text-sm">
-            <div className="flex justify-between"><span className="text-muted-foreground">{t("profile.method")}</span><span>PayPal</span></div>
-            <div className="flex justify-between"><span className="text-muted-foreground">{t("profile.min")}</span><span>$50.00</span></div>
-          </div>
+          <PayBanner />
         </div>
       </div>
     </AppShell>

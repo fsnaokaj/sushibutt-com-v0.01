@@ -1,10 +1,38 @@
-export const globalLeaders = [
-  { username: "sakura.clips", points: 14820, views: 2100000, prize: "$1,200", country: "JP" },
-  { username: "nigiri_nick", points: 12110, views: 1640000, prize: "$800", country: "US" },
-  { username: "wasabiwave", points: 10940, views: 1320000, prize: "$500", country: "KR" },
-  { username: "starroll_mia", points: 8760, views: 980000, prize: "$250", country: "ES" },
-  { username: "omakase.otto", points: 7340, views: 770000, prize: "$150", country: "DE" },
-  { username: "kaiten_kate", points: 6890, views: 640000, prize: "$100", country: "FR" },
-  { username: "soysauce_sam", points: 5610, views: 510000, prize: "$75", country: "IT" },
-  { username: "pinkbelt.p", points: 4980, views: 440000, prize: "$50", country: "NL" }
-]
+export type GemId = "champion" | "champagne" | "ruby" | "sapphire" | "platinum"
+
+export function gemForRank(rank: number): { id: GemId; label: string; emoji: string; range: string } {
+  if (rank === 1) return { id: "champion", label: "Champion", emoji: "👑", range: "#1" }
+  if (rank <= 8) return { id: "champagne", label: "Champagne", emoji: "🥂", range: "#2–8" }
+  if (rank <= 33) return { id: "ruby", label: "Ruby", emoji: "♦️", range: "#9–33" }
+  if (rank <= 66) return { id: "sapphire", label: "Sapphire", emoji: "💠", range: "#34–66" }
+  return { id: "platinum", label: "Platinum", emoji: "⚪", range: "#67–99" }
+}
+
+export function gemBand(rank: number): "champagne" | "ruby" | "sapphire" | "platinum" {
+  if (rank <= 8) return "champagne"
+  if (rank <= 33) return "ruby"
+  if (rank <= 66) return "sapphire"
+  return "platinum"
+}
+
+/** Public alias that cannot be reverse-mapped to a person. */
+export function beltTag(seed: string) {
+  let h = 2166136261
+  for (let i = 0; i < seed.length; i++) h = Math.imul(h ^ seed.charCodeAt(i), 16777619)
+  const code = (h >>> 0).toString(36).toUpperCase().slice(0, 3).padStart(3, "X")
+  return `Belt · ${code}`
+}
+
+function pts(rank: number) {
+  return Math.round(16200 - (rank - 1) * 148 + ((rank * 17) % 41))
+}
+
+export const boardSeats = Array.from({ length: 99 }, (_, i) => {
+  const rank = i + 1
+  return {
+    rank,
+    tag: beltTag(`seat-${rank}-v1`),
+    points: pts(rank),
+    gem: gemForRank(rank)
+  }
+})

@@ -19,6 +19,7 @@ export function formatViews(views: number): string {
 }
 
 export function getBudgetPercent(spent: number, total: number): number {
+  if (!total) return 0
   return Math.min((spent / total) * 100, 100)
 }
 

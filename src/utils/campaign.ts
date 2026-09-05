@@ -1,4 +1,4 @@
-import { Campaign } from "@/types"
+import { Campaign, OpenStatus } from "@/types"
 
 export function campaignTitle(c: Campaign, t: (path: string) => string) {
   if (c.customTitle) return c.customTitle
@@ -12,7 +12,23 @@ export function campaignCopy(c: Campaign, field: "description" | "requirements",
 }
 
 export function rateLabel(c: Campaign, t: (path: string) => string) {
-  if (c.rateType === "fixed") return `$${c.fixedRate} ${t("campaign.fixed")}`
-  if (c.rateType === "points") return `${t("campaign.points")}`
-  return `$${c.cpm}/1K`
+  if (c.rateType === "points" || !c.budgetTotal) return t("pay.pointsNow")
+  if (c.rateType === "fixed") return t("pay.soon")
+  return t("pay.soon")
+}
+
+export function openStatus(c: Campaign): OpenStatus {
+  return c.status ?? "live"
+}
+
+export function isActiveOpen(c: Campaign) {
+  const status = openStatus(c)
+  return status === "live" || status === "registering"
+}
+
+export function statusTone(status: OpenStatus) {
+  if (status === "live") return "bg-emerald-100 text-emerald-800"
+  if (status === "registering") return "bg-pink-100 text-pink-800"
+  if (status === "upcoming") return "bg-amber-100 text-amber-800"
+  return "bg-zinc-200 text-zinc-600"
 }
