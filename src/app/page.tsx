@@ -13,8 +13,8 @@ export default function Home() {
   const { t } = useI18n()
   return (
     <AppShell>
-      <LaunchFilm />
-      <div id="opens" className="max-w-7xl mx-auto px-4 py-6 space-y-6">
+      <div id="opens" className="max-w-7xl mx-auto px-4 py-4 space-y-5">
+        <LaunchFilm />
         <div>
           <p className="text-primary font-extrabold text-sm tracking-wide">sushibutt.com ★ 🍣</p>
           <h1 className="text-3xl font-extrabold">{t("tagline")}</h1>

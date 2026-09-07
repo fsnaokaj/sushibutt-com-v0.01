@@ -2,13 +2,14 @@
 
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
-import { Campaign, FilterState, GoalId, ModalState, RoleId, User } from "@/types"
+import { Campaign, FilterState, GoalId, ModalState, ProfilePatch, RoleId, User } from "@/types"
 import { seedCampaigns, RETIRED_OPEN_IDS, LAUNCH_OPEN_IDS } from "@/data/campaigns"
 import { isActiveOpen } from "@/utils/campaign"
 import { POINTS } from "@/data/quests"
 import { applyStats, Clip, ClipStats, detectPlatform, estimateStats } from "@/data/scoring"
 import { withBasePath } from "@/utils"
 import { canList } from "@/utils/user"
+import { avatarFromSeed, displayNameFromHandle, generateHandle, hydrateIdentity, sanitizeHandle } from "@/data/identity"
 
 export { POINTS }
 
@@ -23,7 +24,8 @@ interface AppState {
   resetFilters: () => void
   openModal: (campaign: Campaign) => void
   closeModal: () => void
-  register: (input: { name: string; email: string; roles: RoleId[]; goals: GoalId[] }) => void
+  register: (input: { name: string; email: string; roles: RoleId[]; goals: GoalId[]; handle?: string; avatarId?: string; bio?: string }) => void
+  updateProfile: (patch: ProfilePatch) => void
   logout: () => void
   joinCampaign: (id: string) => void
   submitClip: (id: string, url: string) => void
@@ -71,19 +73,37 @@ export const useAppStore = create<AppState>()(
       openModal: (campaign) => set({ modal: { open: true, campaign } }),
       closeModal: () => set((state) => ({ modal: { ...state.modal, open: false } })),
 
-      register: ({ name, email, roles, goals }) =>
+      register: ({ name, email, roles, goals, handle, avatarId, bio }) => {
+        const id = `u_${Date.now()}`
+        const nextHandle = sanitizeHandle(handle || "") || generateHandle(id)
         set({
-          user: {
-            id: `u_${Date.now()}`,
-            name,
-            email,
+          user: hydrateIdentity({
+            id,
+            name: name.trim() || displayNameFromHandle(nextHandle),
+            email: email.trim(),
+            handle: nextHandle,
+            avatarId: avatarId || avatarFromSeed(id),
+            bio: (bio || "").slice(0, 80),
+            privateAccount: false,
             roles,
             goals,
             points: POINTS.onboard + roles.length * POINTS.role + goals.length * POINTS.goal,
             joinedIds: [],
             createdCampaigns: [],
             onboarded: true
-          }
+          })
+        })
+      },
+
+      updateProfile: (patch) =>
+        set((state) => {
+          if (!state.user) return state
+          const next: User = { ...state.user, ...patch }
+          if (patch.handle != null) next.handle = sanitizeHandle(patch.handle) || state.user.handle
+          if (patch.name != null) next.name = patch.name.trim() || next.handle
+          if (patch.email != null) next.email = patch.email.trim()
+          if (patch.bio != null) next.bio = patch.bio.slice(0, 80)
+          return { user: next }
         }),
 
       logout: () => set({ user: null }),
@@ -224,9 +244,10 @@ export const useAppStore = create<AppState>()(
     }),
     {
       name: "sushibutt-store-v3",
-      version: 7,
+      version: 8,
       migrate: (persisted) => {
         const state = persisted as Partial<AppState> & { submissions?: Record<string, string> }
+        if (state.user) state.user = hydrateIdentity(state.user)
         if (state.extraCampaigns?.length) {
           state.extraCampaigns = state.extraCampaigns
             .filter((c) => c.id.startsWith("brand-") && !RETIRED_OPEN_IDS.has(c.id))
@@ -277,6 +298,7 @@ export const useAppStore = create<AppState>()(
         return {
           ...currentState,
           ...persisted,
+          user: persisted.user ? hydrateIdentity(persisted.user) : currentState.user,
           modal: currentState.modal,
           filters: { ...defaultFilters, ...persisted.filters }
         }

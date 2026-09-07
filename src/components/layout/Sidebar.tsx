@@ -7,6 +7,7 @@ import { cn } from "@/utils"
 import { useI18n } from "@/i18n/LanguageProvider"
 import { useAppStore } from "@/hooks/useStore"
 import { LanguageSwitcher } from "./LanguageSwitcher"
+import { AvatarMark } from "@/components/profile/AvatarMark"
 
 export function Sidebar() {
   const pathname = usePathname()
@@ -59,17 +60,22 @@ export function Sidebar() {
 
       <div className="p-3 border-t border-border space-y-2">
         {user ? (
-          <div className="px-2 text-xs">
-            <p className="font-bold truncate">{user.name}</p>
-            <p className="text-primary font-bold">{user.points} ★</p>
-            <button onClick={logout} className="text-muted-foreground hover:text-foreground mt-1">{t("nav.logout")}</button>
-          </div>
+          <Link href="/profile" className="flex items-center gap-2 px-2">
+            <AvatarMark id={user.avatarId} size={32} />
+            <div className="min-w-0 text-xs">
+              <p className="font-bold truncate">@{user.handle || user.name}</p>
+              <p className="text-primary font-bold">{user.points} ★</p>
+            </div>
+          </Link>
         ) : (
           <Link href="/join" className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-primary text-white rounded-xl text-sm font-bold">
             <LogIn className="w-4 h-4" />
             {t("nav.join")}
           </Link>
         )}
+        {user ? (
+          <button onClick={logout} className="w-full text-left px-2 text-xs text-muted-foreground hover:text-foreground">{t("nav.logout")}</button>
+        ) : null}
         <Link href="/brand" className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-secondary rounded-xl text-sm font-bold hover:bg-accent">
           <Plus className="w-4 h-4" />
           {t("nav.list")}

@@ -98,6 +98,10 @@ export interface User {
   id: string
   name: string
   email: string
+  handle: string
+  avatarId: string
+  bio: string
+  privateAccount: boolean
   roles: RoleId[]
   goals: GoalId[]
   points: number
@@ -106,5 +110,7 @@ export interface User {
   onboarded: boolean
   lastCheckin?: string
 }
+
+export type ProfilePatch = Partial<Pick<User, "name" | "email" | "handle" | "avatarId" | "bio" | "privateAccount">>
 
 export type Locale = "en" | "ja" | "ko" | "zh" | "ru" | "es" | "nl" | "fr" | "it"
