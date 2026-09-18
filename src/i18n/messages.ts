@@ -39,7 +39,10 @@ const en: Messages = {
     settings: "Settings",
     join: "Join / Login",
     list: "List a Campaign",
-    logout: "Log out"
+    logout: "Log out",
+    board: "Board",
+    earn: "Earn",
+    menu: "Menu"
   },
   home: {
     join: "Join Campaign",

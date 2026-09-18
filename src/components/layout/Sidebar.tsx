@@ -8,8 +8,9 @@ import { useI18n } from "@/i18n/LanguageProvider"
 import { useAppStore } from "@/hooks/useStore"
 import { LanguageSwitcher } from "./LanguageSwitcher"
 import { AvatarMark } from "@/components/profile/AvatarMark"
+import { BrandMark } from "./BrandMark"
 
-export function Sidebar() {
+export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname()
   const { t } = useI18n()
   const user = useAppStore((s) => s.user)
@@ -26,16 +27,10 @@ export function Sidebar() {
   ]
 
   return (
-    <aside className="w-56 shrink-0 border-r border-border bg-white/80 backdrop-blur h-screen sticky top-0 flex flex-col">
-      <Link href="/" className="flex items-center gap-2 px-4 py-5 border-b border-border">
-        <div className="w-9 h-9 rounded-2xl bg-primary text-white flex items-center justify-center text-lg shadow-sm">
-          🍣
-        </div>
-        <div>
-          <p className="font-extrabold text-base tracking-tight leading-none">SushiButt</p>
-          <p className="text-[10px] text-primary font-bold tracking-wide">.com ★</p>
-        </div>
-      </Link>
+    <aside className="w-56 shrink-0 border-r border-border bg-white/80 backdrop-blur h-full flex flex-col">
+      <div className="px-3 py-4 border-b border-border">
+        <BrandMark />
+      </div>
 
       <nav className="flex-1 px-2 py-3 space-y-0.5 overflow-auto">
         {nav.map(({ icon: Icon, label, href }) => {
@@ -44,6 +39,7 @@ export function Sidebar() {
             <Link
               key={href}
               href={href}
+              onClick={onNavigate}
               className={cn(
                 "w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold transition-colors",
                 active ? "bg-primary text-white" : "text-muted-foreground hover:bg-secondary hover:text-foreground"
@@ -60,7 +56,7 @@ export function Sidebar() {
 
       <div className="p-3 border-t border-border space-y-2">
         {user ? (
-          <Link href="/profile" className="flex items-center gap-2 px-2">
+          <Link href="/profile" onClick={onNavigate} className="flex items-center gap-2 px-2">
             <AvatarMark id={user.avatarId} size={32} />
             <div className="min-w-0 text-xs">
               <p className="font-bold truncate">@{user.handle || user.name}</p>
@@ -68,15 +64,15 @@ export function Sidebar() {
             </div>
           </Link>
         ) : (
-          <Link href="/join" className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-primary text-white rounded-xl text-sm font-bold">
+          <Link href="/join" onClick={onNavigate} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-primary text-white rounded-xl text-sm font-bold">
             <LogIn className="w-4 h-4" />
             {t("nav.join")}
           </Link>
         )}
         {user ? (
-          <button onClick={logout} className="w-full text-left px-2 text-xs text-muted-foreground hover:text-foreground">{t("nav.logout")}</button>
+          <button onClick={() => { logout(); onNavigate?.() }} className="w-full text-left px-2 text-xs text-muted-foreground hover:text-foreground">{t("nav.logout")}</button>
         ) : null}
-        <Link href="/brand" className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-secondary rounded-xl text-sm font-bold hover:bg-accent">
+        <Link href="/brand" onClick={onNavigate} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-secondary rounded-xl text-sm font-bold hover:bg-accent">
           <Plus className="w-4 h-4" />
           {t("nav.list")}
         </Link>
