@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon.ico", sizes: "16x16 32x32 48x48" },
       { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -31,7 +31,10 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
     shortcut: ["/favicon.ico"],
     other: [{ rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#ec4899" }]
-  }
+  },
+  openGraph: { type: "website", siteName: "SushiButt", url: "https://sushibutt.com", images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "SushiButt: Clip. Compete. Build." }] },
+  twitter: { card: "summary_large_image", site: "@sushibutt", images: ["/og-image.png"] },
+  other: { "msapplication-TileColor": "#ec4899", "msapplication-TileImage": "/mstile-150x150.png", "msapplication-config": "/browserconfig.xml" }
 }
 
 export const viewport: Viewport = {

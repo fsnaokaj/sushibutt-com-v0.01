@@ -34,7 +34,7 @@ const THEME = {
   PoshGoof: { bg: ["#a78bfa", "#f472b6", "#fde68a"], ink: "#2e1250", hi: "#ffffff", sticker: "#fff1a8", stickerInk: "#2e1250", font: "Paytone One", word: "POSHGOOF", mark: "✨" },
   "Wine Detention": { bg: ["#e11d48", "#fb7185", "#fed7aa"], ink: "#4a0b1e", hi: "#ffffff", sticker: "#fde047", stickerInk: "#4a0b1e", font: "Anton", word: "DETENTION", mark: "🍷" },
   PuckGold: { bg: ["#2563eb", "#38bdf8", "#e0f2fe"], ink: "#0b1f4d", hi: "#ffffff", sticker: "#facc15", stickerInk: "#0b1f4d", font: "Anton", word: "PUCKGOLD", mark: "🏒", accent: "#e11d48" },
-  Fartnatics: { bg: ["#38bdf8", "#7dd3fc", "#bef264"], ink: "#0c3a5a", hi: "#ffffff", sticker: "#fb923c", stickerInk: "#ffffff", font: "Titan One", word: "FARTNATICS", mark: "☁️" },
+  Fartnatics: { bg: ["#8fd5f4", "#d7f2f9", "#c9ef8a"], ink: "#0f3a4c", hi: "#ffffff", sticker: "#f58a2f", stickerInk: "#ffffff", font: "Bricolage Grotesque", word: "fartnatics", mark: "☁️", accent: "#12808a" }, // 2026 brand kit
   "Pack Rips": { bg: ["#facc15", "#fb923c", "#60a5fa"], ink: "#1e1b4b", hi: "#ffffff", sticker: "#ffffff", stickerInk: "#1e1b4b", font: "Bungee", word: "RIP NIGHT", mark: "🃏" },
   "Glow Up": { bg: ["#fda4af", "#fbcfe8", "#fef3c7"], ink: "#4c0519", hi: "#ffffff", sticker: "#f43f5e", stickerInk: "#ffffff", font: "Lilita One", word: "GLOW UP", mark: "✨" },
   "Mystery Box": { bg: ["#2dd4bf", "#a3e635", "#fde047"], ink: "#083344", hi: "#ffffff", sticker: "#f43f5e", stickerInk: "#ffffff", font: "Lilita One", word: "MYSTERY BOX", mark: "🎁" }
@@ -50,7 +50,7 @@ function artFor(j) {
   if (j.brand === "PuckGold" && /og|puckgold-og/.test(id)) return [P("promo-src/pg-puck-sticker.png", 4, 6, 92, -10), P("promo-src/pg-gold.png", 62, 58, 34, 10, { card: true })]
   if (id.includes("giveaway") && j.brand === "PuckGold") return [P("promo-src/pg-gold.png", 8, 6, 64, -6, { card: true }), P("promo-src/pg-puck-sticker.png", 52, 48, 46, 12), E("🎁", 0, 62, 26, -12)]
   if (j.brand === "PuckGold") return [P("promo-src/pg-jersey-geckz.png", 0, 22, 74, -7, { card: true }), P("promo-src/pg-logo-stacked.png", 52, -4, 46, 6), P("promo-src/pg-puck-sticker.png", 50, 56, 42, 14)]
-  if (j.brand === "Fartnatics") return [P("promo-src/fn-hero.jpg", 0, 30, 76, -6, { card: true }), P("promo-src/fn-mascot.jpg", 40, -2, 58, 8, { card: true, round: true })]
+  if (j.brand === "Fartnatics") return [P("promo-src/fn-kit-card.png", 0, 30, 78, -6, { card: true }), P("promo-src/fn-logo-mark.png", 44, -6, 54, 8), E(id.includes("giveaway") ? "🎁" : "🫧", 2, 2, 20, -12)]
   if (j.brand === "Wine Detention") return [P("offers/wd-hero.png", 0, 10, 70, -7, { card: true }), P("offers/wd-bubbles.png", 42, 40, 56, 8, { card: true }), E("🍾", 62, -4, 22, 18)]
   if (j.brand === "PoshGoof") return [E("♈", 4, 4, 18, -14), E("♌", 70, 2, 16, 12), E("♓", 2, 64, 16, 8), E(id === "po-sweet" ? "🍰" : id === "po-horoscope" ? "🔮" : "👗", 22, 16, 50, -6), E(id === "po-sweet" ? "🍒" : "✨", 62, 52, 28, 14)]
   if (j.brand === "Pack Rips") return [CARD(6, 14, 40, -14, "?", 200), CARD(32, 4, 40, 0, "CHASE", 290), CARD(58, 16, 40, 14, "?", 40), E(id.includes("spin") ? "🎰" : id.includes("guess") ? "🔮" : "⚡", 36, 62, 26, -8)]
