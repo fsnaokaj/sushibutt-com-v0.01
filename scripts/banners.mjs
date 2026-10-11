@@ -50,6 +50,7 @@ function artFor(j) {
   if (j.brand === "PuckGold" && /og|puckgold-og/.test(id)) return [P("promo-src/pg-puck-sticker.png", 4, 6, 92, -10), P("promo-src/pg-gold.png", 62, 58, 34, 10, { card: true })]
   if (id.includes("giveaway") && j.brand === "PuckGold") return [P("promo-src/pg-gold.png", 8, 6, 64, -6, { card: true }), P("promo-src/pg-puck-sticker.png", 52, 48, 46, 12), E("🎁", 0, 62, 26, -12)]
   if (j.brand === "PuckGold") return [P("promo-src/pg-jersey-geckz.png", 0, 22, 74, -7, { card: true }), P("promo-src/pg-logo-stacked.png", 52, -4, 46, 6), P("promo-src/pg-puck-sticker.png", 50, 56, 42, 14)]
+  if (id === "fn-giveaway") return [P("promo-src/fn-party-prizes.png", -4, 6, 108, -3), E("🎉", 0, -2, 22, -14), E("✨", 78, -4, 16, 10)]
   if (j.brand === "Fartnatics") return [P("promo-src/fn-kit-card.png", 0, 30, 78, -6, { card: true }), P("promo-src/fn-logo-mark.png", 44, -6, 54, 8), E(id.includes("giveaway") ? "🎁" : "🫧", 2, 2, 20, -12)]
   if (j.brand === "Wine Detention") return [P("offers/wd-hero.png", 0, 10, 70, -7, { card: true }), P("offers/wd-bubbles.png", 42, 40, 56, 8, { card: true }), E("🍾", 62, -4, 22, 18)]
   if (j.brand === "PoshGoof") return [E("♈", 4, 4, 18, -14), E("♌", 70, 2, 16, 12), E("♓", 2, 64, 16, 8), E(id === "po-sweet" ? "🍰" : id === "po-horoscope" ? "🔮" : "👗", 22, 16, 50, -6), E(id === "po-sweet" ? "🍒" : "✨", 62, 52, 28, 14)]
