@@ -87,7 +87,7 @@ export function CampaignExtras({ c, joined }: { c: Campaign; joined: boolean }) 
               const done = a.state?.claims.includes(`follow:${f.id}`)
               return (
                 <button key={f.id} disabled={done} onClick={() => { window.open(f.href, "_blank", "noopener"); if (a.state) a.call("/api/me", { action: "quest", kind: "follow", id: f.id }) }} className="px-3 py-2 rounded-2xl border text-left text-sm disabled:opacity-60">
-                  <span className="block text-xs text-muted-foreground">{NET_LABEL[f.net] || f.net}</span><span className="font-extrabold">@{f.handle}</span> <span className="text-primary font-bold">{done ? "✓" : "+25"}</span>
+                  <span className="block text-xs text-muted-foreground">{NET_LABEL[f.net] || f.net}</span><span className="font-extrabold">@{f.handle}</span> <span className="text-primary font-bold">{done ? "✓" : `+${RULES.follow.toLocaleString("en-US")} ★`}</span>
                 </button>
               )
             })}

@@ -65,8 +65,9 @@ export const BRANDS: Record<BrandId, { url: string; site: string; tag: string; h
     url: "https://fartnatics.com", site: "fartnatics.com", tag: "@fartnatics", hashtag: "#Fartnatics",
     socials: [
       { net: "x", handle: "fartnatics", href: "https://x.com/fartnatics" },
-      { net: "instagram", handle: "fartnatics", href: "https://www.instagram.com/fartnatics" },
-      { net: "tiktok", handle: "fartnatics", href: "https://www.tiktok.com/@fartnatics" }
+      { net: "instagram", handle: "fartnatics", href: "https://www.instagram.com/fartnatics/" },
+      { net: "tiktok", handle: "fartnatics", href: "https://www.tiktok.com/@fartnatics" },
+      { net: "youtube", handle: "fartnatics", href: "https://www.youtube.com/@fartnatics" }
     ]
   }
 }
@@ -366,9 +367,9 @@ export const BRAND_CAMPAIGNS: BrandCampaign[] = [
   // ---------- Fartnatics ----------
   {
     id: "fn-follow", brand: "Fartnatics", kind: "follow", title: "Follow Fartnatics", status: "live", category: "Meme",
-    platforms: ["twitter", "instagram", "tiktok"], points: 25_00, kicker: "FOLLOW THE CLOUD",
+    platforms: ["twitter", "instagram", "tiktok", "youtube"], points: 25_00, kicker: "FOLLOW THE CLOUD",
     who: "Everyone", length: "—", hashtag: "#Fartnatics",
-    mission: "Follow Fartnatics on X, Instagram and TikTok. One claim per follow.", sources: src(FN)
+    mission: "Follow Fartnatics on X, Instagram and TikTok and subscribe on YouTube. One claim per follow.", sources: src(FN)
   },
   {
     id: "fn-daily", brand: "Fartnatics", kind: "daily", title: "Fartnatics Daily Meme", status: "live", category: "Meme",
