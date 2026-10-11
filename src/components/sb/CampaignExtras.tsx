@@ -21,7 +21,8 @@ export function CampaignExtras({ c, joined }: { c: Campaign; joined: boolean }) 
   const [mine, setMine] = useState<{ id: string; url: string; status: string; campaign: string }[]>([])
   const [entries, setEntries] = useState<{ id: string; handle: string; url: string; votes: number }[]>([])
   const hasPromo = c.bannerUrl?.startsWith("/promo/") || ["follow-quest", "launch-film", "daily-belt", "official-open"].includes(c.id)
-  const ended = c.endsAt ? Date.now() > Date.parse(c.endsAt) : false
+  const [ended, setEnded] = useState(false)
+  useEffect(() => { if (c.endsAt) setEnded(Date.now() > Date.parse(c.endsAt)) }, [c.endsAt])
 
   useEffect(() => {
     if (a.state) a.call<{ clips: typeof mine }>("/api/clips").then((d) => d.ok && setMine(d.clips.filter((x) => x.campaign === c.id)))
