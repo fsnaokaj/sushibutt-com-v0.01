@@ -137,7 +137,7 @@ for (const j of jobs) {
     await page.screenshot({ path: path.join(dir, `${size}.png`) })
     fs.unlinkSync(tmp)
   }
-  execSync(`python3 -c "import zipfile,sys;z=zipfile.ZipFile('kit.zip','w',zipfile.ZIP_DEFLATED);[z.write(f) for f in ['card.png','hero.png','story.png','square.png']]"`, { cwd: dir })
+// (zip kits removed to keep deploy small)   execSync(`python3 -c "import zipfile,sys;z=zipfile.ZipFile('kit.zip','w',zipfile.ZIP_DEFLATED);[z.write(f) for f in ['card.png','hero.png','story.png','square.png']]"`, { cwd: dir })
   console.log("✓", j.id)
 }
 await browser.close()

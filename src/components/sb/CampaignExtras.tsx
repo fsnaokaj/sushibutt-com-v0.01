@@ -122,7 +122,9 @@ export function CampaignExtras({ c, joined }: { c: Campaign; joined: boolean }) 
         <div className="rounded-3xl border bg-white p-4 space-y-3">
           <div className="flex items-center justify-between gap-2">
             <p className="font-extrabold">Promo banners</p>
-            <a href={`/promo/${c.id}/kit.zip`} download className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary text-white text-sm font-extrabold"><Download className="w-4 h-4" />Download promo kit</a>
+            {(["card", "hero", "story", "square"] as const).map((f) => (
+              <a key={f} href={`/promo/${c.id}/${f}.png`} download className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary text-white text-sm font-extrabold"><Download className="w-4 h-4" />{f}</a>
+            ))}
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {PROMO.map((p) => (
