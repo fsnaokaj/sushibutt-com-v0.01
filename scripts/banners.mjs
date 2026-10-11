@@ -92,7 +92,7 @@ function html(j, size) {
   const V = size === "story", S = size === "square", H = size === "hero"
   const u = Math.min(w, h) / 100 // 1u = 1% of short side
   const len = j.title.length
-  const tSize = (V ? 13 : S ? 14 : H ? 15 : 14) * u * (len > 30 ? .7 : len > 22 ? .82 : len > 14 ? .94 : 1) * (V ? 1.0 : 1)
+  const tSize = (V ? 13 : S ? 12.5 : H ? 15 : 14) * u * (len > 30 ? .7 : len > 22 ? .82 : len > 14 ? .94 : 1) * (V ? 1.0 : 1)
   const art = artFor(j)
   // art zone
   const zone = V ? { l: 6, t: 4, w: 88, h: 46 } : S ? { l: 44, t: 6, w: 54, h: 60 } : H ? { l: 58, t: 4, w: 38, h: 92 } : { l: 52, t: 6, w: 46, h: 88 }
@@ -105,7 +105,7 @@ function html(j, size) {
     <div style="position:absolute;left:${-2 * u}px;${V ? `top:${44 * u}px` : `bottom:${-4 * u}px`};font-family:'${t.font}';font-size:${(V ? 34 : 30) * u}px;line-height:.8;white-space:nowrap;color:transparent;-webkit-text-stroke:${.35 * u}px rgba(255,255,255,.55);letter-spacing:.02em">${t.word} ${t.word}</div>
     <div style="position:absolute;left:${zone.l}%;top:${zone.t}%;width:${zone.w}%;height:${zone.h}%">${art.map((l) => layer(l, Z)).join("")}</div>
     ${j.sticker ? `<div style="position:absolute;${V ? `right:${6 * u}px;top:${40 * u}px` : S ? `left:${30 * u}px;top:${4 * u}px` : `left:${(H ? 50 : 42) * w / 100}px;top:${6 * u}px`};width:${(V ? 26 : 21) * u}px;height:${(V ? 26 : 21) * u}px;border-radius:50%;background:${t.sticker};color:${t.stickerInk};border:${.9 * u}px solid #fff;box-shadow:0 ${1.2 * u}px ${2.5 * u}px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(-12deg);font-family:'${t.font}';font-size:${(V ? 5.2 : 4.3) * u * (j.sticker.length > 8 ? .72 : 1)}px;line-height:1;padding:${2 * u}px;z-index:3">${j.sticker}</div>` : ""}
-    <div style="position:absolute;left:${text.l}%;top:${text.t}%;width:${text.w}%;${V || S ? "" : "height:100%;"}display:flex;flex-direction:column;justify-content:center;gap:${(V ? 2.6 : 1.8) * u}px;z-index:2">
+    <div style="position:absolute;left:${text.l}%;${V || S ? `bottom:${(V ? 9 : 7.5) * u}px;max-height:${(V ? 46 : 54) * h / 100}px;` : `top:${text.t}%;height:100%;`}width:${text.w}%;display:flex;flex-direction:column;justify-content:center;gap:${(V ? 2.6 : 1.8) * u}px;z-index:2">
       <div style="display:flex;align-items:center;gap:${1.4 * u}px;flex-wrap:wrap">
         <span style="background:#fff;color:${t.ink};font-weight:900;font-size:${(V ? 3.4 : 2.8) * u}px;letter-spacing:.14em;padding:${.9 * u}px ${2 * u}px;border-radius:999px;box-shadow:0 ${.6 * u}px 0 rgba(0,0,0,.15)">${t.mark} ${j.brand.toUpperCase()}</span>
         ${j.age ? `<span style="background:${t.ink};color:#fff;font-weight:900;font-size:${(V ? 3.2 : 2.6) * u}px;padding:${.9 * u}px ${1.8 * u}px;border-radius:999px">${j.age}</span>` : ""}

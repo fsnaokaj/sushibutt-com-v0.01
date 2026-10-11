@@ -1,7 +1,7 @@
 "use client"
 
 import { AppShell } from "@/components/layout/AppShell"
-import { LaunchFilm } from "@/components/campaigns/LaunchFilm"
+import { HeroCarousel } from "@/components/sb/HeroCarousel"
 import { EasyQuests } from "@/components/campaigns/EasyQuests"
 import { FilterBar } from "@/components/campaigns/FilterBar"
 import { CampaignGrid } from "@/components/campaigns/CampaignGrid"
@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <AppShell>
       <div id="opens" className="max-w-7xl mx-auto px-4 py-4 space-y-5">
-        <LaunchFilm />
+        <HeroCarousel />
         <div>
           <p className="text-primary font-extrabold text-xs tracking-[0.2em]">SUSHIBUTT.COM ★ THE BELT</p>
           <h1 className="text-2xl sm:text-3xl font-extrabold leading-tight">{t("tagline")}</h1>
