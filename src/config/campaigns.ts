@@ -141,6 +141,16 @@ export const BRAND_CAMPAIGNS: BrandCampaign[] = [
     mission: "Make fan art, a moodboard or a bottle concept inspired by PoshGoof fashion, fragrance and astrology. Fan votes plus an admin pick.",
     sources: [POSH_TT, { label: "poshgoof.com", href: "https://poshgoof.com/" }], endsAt: "2026-10-30T23:59:00-07:00"
   },
+  {
+    id: "po-sweet", brand: "PoshGoof", kind: "art", title: "Sweet scent contest", status: "live", category: "Lifestyle",
+    platforms: ["tiktok", "instagram", "twitter"], points: 400, kicker: "SWEET SCENT · ART OR CLIP",
+    who: "Fragrance lovers, illustrators and clippers", length: "One image, or a 7–15s clip", hashtag: "#PoshGoofSweetScent",
+    mission: "Make fan art or a short clip about a sweet fragrance mood — think the Fragrance by Sabrina sweet collection (Lemon Pie, Me Espresso, Cherry Baby, Caramel Dream, Sweet Tooth) — styled the PoshGoof way. Fan votes plus an admin pick. Prizes are tied to the Fartnatics giveaway (fartnatics.com/giveaway; free to enter, see its official rules). Not sponsored or endorsed by Fragrance by Sabrina.",
+    sources: [POSH_TT, { label: "poshgoof.com", href: "https://poshgoof.com/" }, { label: "fragrancebysabrina.com (scent names only)", href: "https://fragrancebysabrina.com/" }, { label: "Fartnatics giveaway (prizes)", href: "https://fartnatics.com/giveaway" }],
+    endsAt: "2026-11-01T23:59:00-07:00",
+    extraDos: ["Text and your own art only — name the scents in words."],
+    extraDonts: ["No Fragrance by Sabrina logos, product photos, or anyone's likeness.", "Don't imply Fragrance by Sabrina sponsors or endorses this.", SHELBIE_SAFE]
+  },
   // ---------- Wine Detention ----------
   {
     id: "wd-follow", brand: "Wine Detention", kind: "follow", title: "Follow Wine Detention", status: "live", category: "Lifestyle",
