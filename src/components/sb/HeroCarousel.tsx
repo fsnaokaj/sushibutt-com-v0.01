@@ -64,10 +64,10 @@ export function HeroCarousel() {
         ))}
       </div>
       <button type="button" aria-label="Previous" onClick={() => go(i - 1)}
-        className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow items-center justify-center text-xl font-black text-pink-600 hover:bg-white">‹</button>
+        className="hidden md:flex absolute left-3 top-[calc(50%-14px)] -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow items-center justify-center text-xl font-black text-pink-600 hover:bg-white">‹</button>
       <button type="button" aria-label="Next" onClick={() => go(i + 1)}
-        className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow items-center justify-center text-xl font-black text-pink-600 hover:bg-white">›</button>
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 rounded-full bg-white/80 px-2 py-1 backdrop-blur-sm">
+        className="hidden md:flex absolute right-3 top-[calc(50%-14px)] -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow items-center justify-center text-xl font-black text-pink-600 hover:bg-white">›</button>
+      <div className="flex justify-center gap-1.5 py-2 bg-white">
         {SLIDES.map((s, k) => (
           <button key={s.art} type="button" aria-label={`Go to slide ${k + 1}`} aria-current={k === i}
             onClick={() => go(k)} className={`h-2 rounded-full transition-all ${k === i ? "w-5 bg-pink-500" : "w-2 bg-pink-300"}`} />
