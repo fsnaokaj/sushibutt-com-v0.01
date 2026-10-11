@@ -3,6 +3,7 @@ import { Bebas_Neue, Nunito } from "next/font/google"
 import "@/styles/globals.css"
 import { LanguageProvider } from "@/i18n/LanguageProvider"
 import { AccountProvider } from "@/lib/client/account"
+import { MilestoneConfetti } from "@/components/sb/Confetti"
 
 const nunito = Nunito({ subsets: ["latin", "latin-ext", "cyrillic"], weight: ["500", "700", "800"] })
 const display = Bebas_Neue({ subsets: ["latin"], weight: "400", variable: "--font-display" })
@@ -43,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${nunito.className} ${display.variable}`}>
-        <LanguageProvider><AccountProvider>{children}</AccountProvider></LanguageProvider>
+        <LanguageProvider><AccountProvider>{children}<MilestoneConfetti /></AccountProvider></LanguageProvider>
       </body>
     </html>
   )

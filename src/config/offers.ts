@@ -14,10 +14,34 @@ export type Offer = {
   art: string
   badge?: string
   ageGate?: string
+  alt?: { label: string; url: string }
   /** clipping campaigns for this brand live in src/config/campaigns.ts */
 }
 
 export const OFFERS: Offer[] = [
+  {
+    id: "puckgold-og",
+    brand: "PuckGold",
+    title: "$36 OG Gold Puck + 1-Year Pass",
+    price: "$36 one payment",
+    blurb: "OG Limited Edition gold puck plus a 1-Year Premium League Pass. Founding offer, limited time.",
+    bullets: ["OG Limited Edition gold puck", "1-Year Premium League Pass", "Buy on Whop or puckgold.com"],
+    url: "https://whop.com/puckgold/og-gold-puck/",
+    alt: { label: "puckgold.com/join.html", url: "https://puckgold.com/join.html" },
+    art: "/promo-src/pg-puck-sticker.png",
+    badge: "Top offer"
+  },
+  {
+    id: "puckgold-premium",
+    brand: "PuckGold",
+    title: "Premium League Pass",
+    price: "$12.99 / month",
+    blurb: "PuckGold Premium League Pass: Fan Zone boosts, early drops and more. Cancel anytime.",
+    bullets: ["Premium League Pass (digital)", "Fan Zone boosts", "Cancel anytime"],
+    url: "https://puckgold.com/join.html",
+    art: "/promo-src/pg-logo-stacked.png",
+    badge: "Membership"
+  },
   {
     id: "poshgoof",
     brand: "PoshGoof",
@@ -40,17 +64,6 @@ export const OFFERS: Offer[] = [
     art: "/offers/wd-hero.png",
     badge: "Launch weekend",
     ageGate: "21+"
-  },
-  {
-    id: "puckgold-og",
-    brand: "PuckGold",
-    title: "$36 OG Gold Puck",
-    price: "$36",
-    blurb: "OG Limited Edition gold puck plus a 1-year Premium League Pass. Founding offer.",
-    bullets: ["OG Limited Edition gold puck", "1-year Premium League Pass", "Founding member badge"],
-    url: "https://puckgold.com/join.html",
-    art: "/offers/pg-puck.jpg",
-    badge: "Founding offer"
   },
   {
     id: "puckgold-giveaway",

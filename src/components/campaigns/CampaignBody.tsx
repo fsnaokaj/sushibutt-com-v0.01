@@ -15,11 +15,11 @@ import { campaignTitle, isActiveOpen, openStatus, rateLabel, statusTone } from "
 import { CampaignBrief } from "@/components/campaigns/CampaignBrief"
 import { EasyQuests } from "@/components/campaigns/EasyQuests"
 import { PayBanner } from "@/components/ui/PayBanner"
-import { beltTag, gemForRank } from "@/data/leaderboard"
 import { briefs } from "@/data/briefs"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { CampaignExtras } from "@/components/sb/CampaignExtras"
+import { LiveLeaderboard } from "@/components/sb/AccountPanels"
 import { useAccount } from "@/lib/client/account"
 
 export function CampaignBody({ c }: { c: Campaign }) {
@@ -75,7 +75,7 @@ export function CampaignBody({ c }: { c: Campaign }) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="space-y-5">
-        <div className="flex items-center gap-2 text-sm font-bold text-primary">{c.brand && c.brand !== "SushiButt" ? "★" : "🍣"} {c.agency} ★{c.points ? ` · +${c.points} ★ per approved ${c.kind === "art" ? "win" : "clip"}` : ""}</div>
+        <div className="flex items-center gap-2 text-sm font-bold text-primary">{c.brand && c.brand !== "SushiButt" ? "★" : "🍣"} {c.agency} ★{c.points ? ` · +${c.points.toLocaleString("en-US")} ★ per approved ${c.kind === "art" ? "win" : "clip"}` : ""}</div>
         <h1 className="text-2xl font-extrabold">{campaignTitle(c, t)}</h1>
         <span className={cn("inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wide", statusTone(status))}>
           {t(`filters.${status}`)}
@@ -155,23 +155,7 @@ export function CampaignBody({ c }: { c: Campaign }) {
           </div>
         )}
         {tab === "Leaderboard" && (
-          <div className="space-y-2">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((rank) => {
-              const gem = gemForRank(rank)
-              return (
-                <div key={rank} className="flex items-center justify-between p-3 bg-secondary rounded-2xl">
-                  <div className="flex items-center gap-2">
-                    <span>{rank === 1 ? "👑" : gem.emoji}</span>
-                    <span className="font-mono text-sm">{beltTag(`${c.id}-${rank}`)}</span>
-                  </div>
-                  <div className="text-right text-sm">
-                    <p className="font-extrabold">{Math.max(40, 420 - rank * 37)} ★</p>
-                    <p className="text-xs text-muted-foreground">{rank === 1 ? t("board.champion") : gem.label}</p>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+          <LiveLeaderboard campaignId={c.id} />
         )}
         {tab === "Analytics" && (
           <div className="space-y-3">

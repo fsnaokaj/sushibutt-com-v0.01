@@ -112,7 +112,7 @@ export default function ProfilePage() {
               {t(`profile.${id}`)}
             </button>
           ))}
-          <span className="py-3 text-muted-foreground">{user.points} ★</span>
+          <span className="py-3 text-muted-foreground">{user.points.toLocaleString("en-US")} ★</span>
         </div>
 
         {tab === "clips" ? (

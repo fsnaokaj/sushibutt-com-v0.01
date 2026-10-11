@@ -8,7 +8,7 @@ import { DYNAMIC_ENV_ID, LOGIN_READY } from "@/config/site"
 
 export type ServerState = {
   og: number; handle: string; avatar: string; points: number; rank: number | null; invites: number
-  welcomeSpin: string; checkedInToday: boolean; claims: string[]; links: Record<string, string>; bio: string
+  welcomeSpin: string; checkedInToday: boolean; dailySpun: boolean; chestOpened: boolean; streak: number; verifyCode: string; verified: Record<string, string>; claims: string[]; links: Record<string, string>; bio: string
 }
 export type Notif = { t: number; pts: number; note: string }
 export type Status = "setup_login" | "out" | "loading" | "setup_store" | "error" | "ready"

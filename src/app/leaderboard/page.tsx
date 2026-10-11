@@ -85,7 +85,7 @@ export default function LeaderboardPage() {
                       <td className="px-4 py-2.5">{r.rank === 1 ? "👑" : r.rank}</td>
                       <td className="px-4 py-2.5 font-mono text-xs sm:text-sm">{r.label}</td>
                       <td className="px-4 py-2.5 text-right">{gem.emoji} {r.rank === 1 ? t("board.champion") : gem.label}</td>
-                      <td className="px-4 py-2.5 text-right text-primary font-extrabold">{r.points} ★</td>
+                      <td className="px-4 py-2.5 text-right text-primary font-extrabold">{r.points.toLocaleString("en-US")} ★</td>
                     </tr>
                   )
                 })}

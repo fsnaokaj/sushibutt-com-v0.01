@@ -2,7 +2,8 @@
 import { useAppStore, useAllCampaigns } from "@/hooks/useStore"
 import { cn } from "@/utils"
 
-const BRANDS = ["All", "SushiButt", "PoshGoof", "Wine Detention", "PuckGold", "Fartnatics"]
+import { BRANDS as B } from "@/config/campaigns"
+const BRANDS = ["All", ...Object.keys(B)]
 export function BrandChips() {
   const brand = useAppStore((s) => s.filters.brand) || "All"
   const setFilter = useAppStore((s) => s.setFilter)

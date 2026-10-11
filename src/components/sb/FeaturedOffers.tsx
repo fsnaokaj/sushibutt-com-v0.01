@@ -30,6 +30,7 @@ export function FeaturedOffers({ full }: { full?: boolean }) {
               {full && <p className="text-sm text-muted-foreground">{o.blurb}</p>}
               {full && <ul className="text-sm list-disc pl-5">{o.bullets.map((b) => <li key={b}>{b}</li>)}</ul>}
               <p className="text-sm font-extrabold text-primary">Open {new URL(o.url).hostname.replace("www.", "")} ↗</p>
+              {o.alt && <p className="text-xs text-muted-foreground">Also at {o.alt.label}</p>}
             </div>
           </a>
         ))}

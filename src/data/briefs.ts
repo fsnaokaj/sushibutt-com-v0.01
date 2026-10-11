@@ -25,12 +25,12 @@ export const briefs: Record<string, CampaignBrief> = {
       { label: "TikTok · @sushibuttshelbie", href: "https://www.tiktok.com/@sushibuttshelbie" }
     ],
     steps: [
-      "Join this open ( +50 pts ).",
+      "Join this open ( +5,000 pts ).",
       "Pull her latest launch, intro, or talking-head from the source links. Screen-record only her public posts — no DMs, no private lives.",
       "Cut a hook in the first 1.5 seconds. Examples: the punchline first, a face close-up, or “wait for the launch.”",
       "Keep her voice. Captions on. Pink SushiButt sticker or @sushibuttshelbie on screen is enough branding.",
       "Post public on TikTok, Reels, Shorts, or X. Tag @sushibuttshelbie and @sushibutt in the caption.",
-      "Paste the public URL below and submit ( +100 pts )."
+      "Paste the public URL below and submit ( +10,000 pts )."
     ],
     dos: [
       "Vertical 9:16 for shorts. 16:9 is OK for a YouTube intro cut.",
@@ -56,11 +56,11 @@ export const briefs: Record<string, CampaignBrief> = {
       { label: "TikTok · @sushibutt", href: "https://www.tiktok.com/@sushibutt" }
     ],
     steps: [
-      "Join ( +50 pts ).",
+      "Join ( +5,000 pts ).",
       "Grab official SushiButt footage from @sushibutt only — mascot, belt, launch-film stills, site hero.",
       "Cut a cold open: “coldest game on earth,” “fans decide,” or “pulled goalie to launch.”",
       "Tag @sushibutt in caption. Optional: @sushibuttshelbie @poshgoof.",
-      "Post public, keep live 30 days, paste the URL, submit ( +100 pts )."
+      "Post public, keep live 30 days, paste the URL, submit ( +10,000 pts )."
     ],
     dos: [
       "Official look: pink, sushi, belt, launch-film scenes.",
@@ -86,11 +86,11 @@ export const briefs: Record<string, CampaignBrief> = {
       { label: "X · @poshgoof", href: "https://x.com/poshgoof" }
     ],
     steps: [
-      "Onboard if you have not ( +80 pts and up ).",
+      "Onboard if you have not ( +8,000 pts and up ).",
       "Tap each follow button. It opens the profile. Hit Follow.",
-      "Come back — the claim is +25 pts each, once.",
-      "Optional: share the belt with all three tags ( +20 pts ).",
-      "Daily check-in is a separate +15 pts."
+      "Come back — the claim is +2,500 pts each, once.",
+      "Optional: share the belt with all three tags ( +2,000 pts ).",
+      "Daily check-in is a separate +1,500 pts."
     ],
     dos: [
       "Follow for real so you see launch clips to recut.",
@@ -116,10 +116,10 @@ export const briefs: Record<string, CampaignBrief> = {
       { label: "X · @poshgoof", href: "https://x.com/poshgoof" }
     ],
     steps: [
-      "Check in today ( +15 pts ).",
+      "Check in today ( +1,500 pts ).",
       "Pick today’s post from one of the three sources. Screenshot the time so it is clearly new.",
       "Cut a 7–15s vertical. Hook first. Caption: who you clipped + the three tags.",
-      "Post public. Paste URL. Submit ( +100 pts ). Join this open first if you have not ( +50 pts )."
+      "Post public. Paste URL. Submit ( +10,000 pts ). Join this open first if you have not ( +5,000 pts )."
     ],
     dos: [
       "One daily submit is the quest. Extra clips can go in Shelbie Launch or Official Intro.",

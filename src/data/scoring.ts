@@ -34,7 +34,7 @@ export type ScoreBreakdown = {
 
 /** Points per 1K views (linear floor). */
 export const VIEW_PER_K = 8
-/** Early-traction bonus. 1K views ≈ +84, 10K ≈ +112, 100K ≈ +140. */
+/** Early-traction bonus. 1K views ≈ +8,400, 10K ≈ +11,200, 100K ≈ +14,000 (after the 100x scale). */
 export const VIEW_LOG = 28
 export const LIKE_W = 0.45
 export const COMMENT_W = 1.8
@@ -49,7 +49,11 @@ export const PLATFORM_MULT: Record<Platform, number> = {
   tiktok: 1.15,
   instagram: 1.1,
   twitter: 1,
-  facebook: 0.9
+  facebook: 0.9,
+  twitch: 1.1,
+  kick: 1.1,
+  spotify: 1,
+  substack: 1
 }
 
 export const CAMPAIGN_MULT: Record<string, number> = {
@@ -98,7 +102,7 @@ export function scoreClip(
   const erMult = clamp(ER_FLOOR + ER_GAIN * er, ER_FLOOR, ER_CAP)
   const platformMult = PLATFORM_MULT[platform] ?? 1
   const campaignMult = CAMPAIGN_MULT[campaignId] ?? 1
-  const total = Math.floor(raw * erMult * platformMult * campaignMult)
+  const total = Math.floor(raw * erMult * platformMult * campaignMult * 100)
 
   return {
     viewsPts,

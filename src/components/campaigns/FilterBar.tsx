@@ -9,7 +9,7 @@ import { cn } from "@/utils"
 import { isActiveOpen, openStatus } from "@/utils/campaign"
 import { useI18n } from "@/i18n/LanguageProvider"
 
-const PLATFORMS: Platform[] = ["youtube", "tiktok", "instagram", "twitter", "facebook"]
+const PLATFORMS: Platform[] = ["youtube", "tiktok", "instagram", "twitter", "twitch", "kick", "spotify", "substack"]
 const CATEGORIES: Category[] = ["All Categories", "Music", "Gaming", "Entertainment", "Sports", "Lifestyle", "Meme", "Jobs"]
 const SORT_OPTIONS: SortBy[] = ["Featured", "Live first", "Newest", "Most Creators", "Highest Budget", "Highest Available Budget", "Highest CPM", "Most Paid Out"]
 const CONTENT_TYPES = ["All Content types", "Clipping", "UGC", "Quest", "Contest", "Job"] as const

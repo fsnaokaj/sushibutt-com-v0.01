@@ -13,6 +13,7 @@ import { BrandChips } from "@/components/sb/BrandChips"
 import { LoginPanel } from "@/components/sb/LoginPanel"
 import { SetupNotice } from "@/components/sb/SetupNotice"
 import { FounderCard } from "@/components/sb/FounderCard"
+import { MysteryBox } from "@/components/sb/MysteryBox"
 
 export default function Home() {
   const { t } = useI18n()
@@ -28,6 +29,7 @@ export default function Home() {
         <SetupNotice />
         <LoginPanel />
         <FeaturedOffers />
+        <MysteryBox />
         <FounderCard />
         <EasyQuests />
         <FilterBar />

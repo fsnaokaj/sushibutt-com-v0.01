@@ -8,7 +8,7 @@ export type Category =
   | "Lifestyle"
   | "Meme"
   | "Jobs"
-export type Platform = "youtube" | "tiktok" | "instagram" | "twitter" | "facebook"
+export type Platform = "youtube" | "tiktok" | "instagram" | "twitter" | "facebook" | "spotify" | "twitch" | "kick" | "substack"
 export type SortBy =
   | "Featured"
   | "Newest"
@@ -79,7 +79,7 @@ export interface Campaign {
   totalViews?: number
   resourcesUrl?: string
   brand?: string
-  kind?: "follow" | "daily" | "launch" | "art" | "remix"
+  kind?: "follow" | "daily" | "launch" | "art" | "remix" | "predict" | "spin"
   endsAt?: string
   points?: number
   prizeLabel?: string

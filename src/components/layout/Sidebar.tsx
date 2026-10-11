@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LayoutGrid, User, Settings, Bell, TrendingUp, Trophy, Gift, LogIn, Plus, Tag, Disc3 } from "lucide-react"
+import { LayoutGrid, User, Settings, Bell, TrendingUp, Trophy, Gift, LogIn, Plus, Tag, Disc3, Target, Megaphone } from "lucide-react"
 import { cn } from "@/utils"
 import { useI18n } from "@/i18n/LanguageProvider"
 import { useAppStore } from "@/hooks/useStore"
@@ -19,13 +19,15 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const nav = [
     { icon: LayoutGrid, label: t("nav.campaigns"), href: "/" },
     { icon: Tag, label: "Offers", href: "/offers" },
-    { icon: Disc3, label: "Welcome Spin", href: "/spin" },
+    { icon: Target, label: "Quests", href: "/quests" },
+    { icon: Disc3, label: "Spin", href: "/spin" },
     { icon: Trophy, label: t("nav.leaderboard"), href: "/leaderboard" },
     { icon: Gift, label: t("nav.prizes"), href: "/prizes" },
     { icon: TrendingUp, label: t("nav.earnings"), href: "/earnings" },
     { icon: User, label: t("nav.profile"), href: "/profile" },
     { icon: Bell, label: t("nav.notifications"), href: "/notifications" },
-    { icon: Settings, label: t("nav.settings"), href: "/settings" }
+    { icon: Settings, label: t("nav.settings"), href: "/settings" },
+    { icon: Megaphone, label: "Sponsors", href: "/sponsors" }
   ]
 
   return (
@@ -62,7 +64,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
             <AvatarMark id={user.avatarId} size={32} />
             <div className="min-w-0 text-xs">
               <p className="font-bold truncate">@{user.handle || user.name}</p>
-              <p className="text-primary font-bold">{user.points} ★</p>
+              <p className="text-primary font-bold">{user.points.toLocaleString("en-US")} ★</p>
             </div>
           </Link>
         ) : (

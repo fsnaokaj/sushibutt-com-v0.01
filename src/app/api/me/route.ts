@@ -1,6 +1,6 @@
 import { requireUser, ok, fail } from "@/lib/server/auth"
 import { redisConfig, redisCmd } from "@/lib/server/redis"
-import { touch, readState, setProfile, claimQuest, linkAccount } from "@/lib/server/store"
+import { touch, readState, setProfile, claimQuest, linkAccount, requestVerify } from "@/lib/server/store"
 export const dynamic = "force-dynamic"
 
 /** GET: create-on-first-call + state.  POST {action:'profile'|'reroll'|'quest'|'link', ...} */
@@ -25,6 +25,7 @@ export async function POST(req: Request) {
     else if (b.action === "reroll") await setProfile(sub, { reroll: true })
     else if (b.action === "quest") { award = await claimQuest(sub, b.kind, b.id); if (award < 0) return Response.json({ ok: false, error: "bad_quest" }, { status: 400 }) }
     else if (b.action === "link") award = await linkAccount(sub, b.slot, b.handle)
+    else if (b.action === "verify") { const code = await requestVerify(sub, b.slot); return ok({ code, award: 0, state: await readState(sub) }) }
     else return Response.json({ ok: false, error: "bad_action" }, { status: 400 })
     return ok({ award, state: await readState(sub) })
   } catch (e) { return fail(e) }

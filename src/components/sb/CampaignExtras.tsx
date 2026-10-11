@@ -4,8 +4,9 @@ import Link from "next/link"
 import { Download } from "lucide-react"
 import type { Campaign } from "@/types"
 import { useAccount } from "@/lib/client/account"
-import { BRANDS, ALL_FOLLOWS, PRIZE_LABEL, type BrandId } from "@/config/campaigns"
+import { BRANDS, ALL_FOLLOWS, PRIZE_LABEL, NET_LABEL, type BrandId } from "@/config/campaigns"
 import { Countdown } from "./Countdown"
+import { RULES } from "@/config/site"
 
 const PROMO = ["card", "hero", "story", "square"] as const
 const LABEL: Record<string, string> = { card: "Card 1200×675", hero: "Hero 1600×600", story: "Story 1080×1920", square: "Square 1080×1080" }
@@ -33,7 +34,7 @@ export function CampaignExtras({ c, joined }: { c: Campaign; joined: boolean }) 
   const submit = async () => {
     setMsg("")
     const d = await a.call<{ pts?: number; id?: string }>("/api/clips", { campaignId: c.id, url: url.trim(), platform })
-    if (d.ok) { setMsg(`Submitted for review${d.pts ? ` · +${d.pts} ★` : ""}. Approval adds +${c.points ?? 100} ★.`); setUrl(""); setMine((m) => [{ id: d.id!, url, status: "pending", campaign: c.id }, ...m]) }
+    if (d.ok) { setMsg(c.kind === "predict" ? "Guess locked. Good luck!" : `Submitted for review${d.pts ? ` · +${d.pts.toLocaleString("en-US")} ★` : ""}. Approval adds +${(c.points ?? 10000).toLocaleString("en-US")} ★.`); setUrl(""); setMine((m) => [{ id: d.id!, url, status: "pending", campaign: c.id }, ...m]) }
     else setMsg({ duplicate: "That URL was already submitted.", bad_url: "Paste a public https:// link.", bad_platform: "Pick the platform." }[d.error || ""] || `Couldn't submit (${d.error}).`)
   }
   const vote = async (clipId: string) => {
@@ -41,7 +42,7 @@ export function CampaignExtras({ c, joined }: { c: Campaign; joined: boolean }) 
     setMsg(d.ok ? (d.voted ? "Vote counted · +5 ★. Come back tomorrow to vote again." : "You already voted today.") : `Couldn't vote (${d.error}).`)
     if (d.ok && d.voted) setEntries((e) => e.map((x) => (x.id === clipId ? { ...x, votes: x.votes + 1 } : x)))
   }
-  const brandFollows = brand !== "SushiButt" ? ALL_FOLLOWS.filter((f) => f.brand === brand) : []
+  const brandFollows = brand !== "SushiButt" ? ALL_FOLLOWS.filter((f) => f.brand === brand && (c.id !== "pg-spotify" || f.net === "spotify")) : []
 
   return (
     <div className="space-y-4">
@@ -49,35 +50,44 @@ export function CampaignExtras({ c, joined }: { c: Campaign; joined: boolean }) 
         <div className="rounded-3xl border bg-gradient-to-r from-pink-50 to-amber-50 p-4 text-sm space-y-1">
           {c.endsAt && <p>Ends in <Countdown to={c.endsAt} /></p>}
           <p className="font-extrabold text-primary">{c.prizeLabel || PRIZE_LABEL}</p>
-          {isArt && <p className="text-muted-foreground">Winners: fan votes plus an admin pick. Winning bonus +{c.points} ★. Prizes announced by {brand}.</p>}
+          {isArt && <p className="text-muted-foreground">Winners: fan votes plus an admin pick. Winning bonus +{c.points?.toLocaleString("en-US")} ★. Prizes announced by {brand}.</p>}
         </div>
       )}
 
-      {a.state && joined && c.kind !== "follow" && !ended && (
+      {c.kind === "spin" && <Link href="/spin?mode=daily" className="block text-center py-3 rounded-full bg-primary text-white font-extrabold">Take your free daily spin</Link>}
+      {a.state && joined && c.kind !== "follow" && c.kind !== "spin" && !ended && c.kind === "predict" && (
+        <div className="rounded-3xl border bg-white p-4 space-y-2">
+          <p className="font-extrabold">Your chase-card guess (free, one per person)</p>
+          <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="Card name, e.g. a set\u2019s top secret rare" className="w-full px-3 py-2 border rounded-xl text-sm" />
+          <button onClick={submit} disabled={url.trim().length < 2} className="w-full py-2.5 rounded-full bg-primary text-white font-extrabold disabled:opacity-40">Lock my guess</button>
+          {mine.map((m) => <p key={m.id} className="text-xs">Your guess: <b>{m.url}</b> · {m.status}</p>)}
+        </div>
+      )}
+      {a.state && joined && c.kind !== "follow" && c.kind !== "spin" && c.kind !== "predict" && !ended && (
         <div className="rounded-3xl border bg-white p-4 space-y-2">
           <p className="font-extrabold">{isArt ? "Submit your art" : "Submit a clip"}</p>
-          <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder={isArt ? "https:// link to your image or post" : "https:// public TikTok / Reels / Shorts / X URL"} className="w-full px-3 py-2 border rounded-xl text-sm" />
+          <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder={isArt ? "https:// link to your image or post" : "https:// public TikTok / YouTube / Reels / X / Twitch / Kick URL"} className="w-full px-3 py-2 border rounded-xl text-sm" />
           <select value={platform} onChange={(e) => setPlatform(e.target.value)} className="w-full px-3 py-2 border rounded-xl text-sm">
             <option value="">Auto-detect platform</option>
-            <option value="tiktok">TikTok</option><option value="instagram">Instagram</option><option value="youtube">YouTube</option><option value="x">X</option>
+            <option value="tiktok">TikTok</option><option value="youtube">YouTube Shorts</option><option value="youtube-long">YouTube (long-form)</option><option value="instagram">Instagram Reels</option><option value="x">X</option><option value="twitch">Twitch (clip/VOD)</option><option value="kick">Kick (clip/VOD)</option><option value="spotify">Spotify</option><option value="substack">Substack</option>
             {isArt && <option value="image">Image link</option>}
           </select>
           <button onClick={submit} disabled={!url} className="w-full py-2.5 rounded-full bg-primary text-white font-extrabold disabled:opacity-40">Submit for review</button>
           {mine.map((m) => <p key={m.id} className="text-xs break-all"><span className={m.status === "approved" ? "text-emerald-700 font-bold" : m.status === "rejected" ? "text-rose-600 font-bold" : "text-amber-700 font-bold"}>{m.status}</span> · {m.url}</p>)}
         </div>
       )}
-      {!a.state && c.kind !== "follow" && a.status !== "setup_login" && <p className="text-sm"><Link href="/join" className="text-primary font-extrabold">Sign in</Link> to submit.</p>}
+      {!a.state && c.kind !== "follow" && c.kind !== "spin" && a.status !== "setup_login" && <p className="text-sm"><Link href="/join" className="text-primary font-extrabold">Sign in</Link> to submit.</p>}
       {msg && <p className="text-sm font-bold text-primary">{msg}</p>}
 
       {brandFollows.length > 0 && (
         <div className="rounded-3xl border bg-white p-4 space-y-2">
-          <p className="font-extrabold">Follow {brand} · +25 ★ each (once)</p>
+          <p className="font-extrabold">Follow / subscribe to {brand} · +{RULES.follow.toLocaleString("en-US")} ★ each (once)</p>
           <div className="grid sm:grid-cols-3 gap-2">
             {brandFollows.map((f) => {
               const done = a.state?.claims.includes(`follow:${f.id}`)
               return (
                 <button key={f.id} disabled={done} onClick={() => { window.open(f.href, "_blank", "noopener"); if (a.state) a.call("/api/me", { action: "quest", kind: "follow", id: f.id }) }} className="px-3 py-2 rounded-2xl border text-left text-sm disabled:opacity-60">
-                  <span className="block text-xs text-muted-foreground">{f.net}</span><span className="font-extrabold">@{f.handle}</span> <span className="text-primary font-bold">{done ? "✓" : "+25"}</span>
+                  <span className="block text-xs text-muted-foreground">{NET_LABEL[f.net] || f.net}</span><span className="font-extrabold">@{f.handle}</span> <span className="text-primary font-bold">{done ? "✓" : "+25"}</span>
                 </button>
               )
             })}

@@ -24,7 +24,7 @@ export function beltTag(seed: string) {
 }
 
 function pts(rank: number) {
-  return Math.round(16200 - (rank - 1) * 148 + ((rank * 17) % 41))
+  return Math.round((16200 - (rank - 1) * 148 + ((rank * 17) % 41)) * 100)
 }
 
 export const boardSeats = Array.from({ length: 99 }, (_, i) => {

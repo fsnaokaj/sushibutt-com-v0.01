@@ -3,7 +3,7 @@ import { useState } from "react"
 type Clip = Record<string, string>
 export default function AdminPage() {
   const [pass, setPass] = useState("")
-  const [data, setData] = useState<{ clips: Clip[]; listings: Record<string, string>[] } | null>(null)
+  const [data, setData] = useState<{ clips: Clip[]; listings: Record<string, string>[]; verify: Record<string, string>[] } | null>(null)
   const [err, setErr] = useState("")
   const [filter, setFilter] = useState("pending")
   const load = async (p = pass) => {
@@ -38,10 +38,28 @@ export default function AdminPage() {
                   <a href={c.url} target="_blank" rel="noopener noreferrer" className="text-xs break-all text-primary">{c.url}</a>
                   <p className="text-xs text-muted-foreground">{new Date(Number(c.at)).toLocaleString()}</p>
                 </div>
+                {c.status === "approved" && (
+                  <form className="flex flex-wrap gap-1 items-center text-xs" onSubmit={async (e) => { e.preventDefault(); const f = Object.fromEntries(new FormData(e.currentTarget).entries()); const r = await fetch("/api/admin", { method: "POST", headers: { "x-admin-pass": pass, "Content-Type": "application/json" }, body: JSON.stringify({ statsFor: c.id, ...f }) }); const d = await r.json(); alert(d.ok ? `Clip now worth ${d.pts.toLocaleString()} ★ from views (+${d.delta.toLocaleString()} awarded)` : d.error); load() }}>
+                    {["views", "likes", "comments", "shares"].map((k) => <input key={k} name={k} defaultValue={c[k] || ""} placeholder={k} inputMode="numeric" className="w-20 px-2 py-1 border rounded-lg" />)}
+                    <input name="proof" defaultValue={c.proof || ""} placeholder="screenshot URL (optional)" className="w-40 px-2 py-1 border rounded-lg" />
+                    <button className="px-2 py-1 rounded-lg bg-primary text-white font-bold">Save stats</button>
+                    {c.viewPts && <span className="text-muted-foreground">{Number(c.viewPts).toLocaleString()} ★ from views</span>}
+                  </form>
+                )}
                 {c.status === "pending" && <div className="flex gap-2"><button onClick={() => decide(c.id, "approved")} className="px-3 py-1.5 rounded-full bg-emerald-600 text-white font-bold text-sm">Approve</button><button onClick={() => decide(c.id, "rejected")} className="px-3 py-1.5 rounded-full bg-rose-100 text-rose-800 font-bold text-sm">Reject</button></div>}
               </div>
             ))}
           </div>
+          <h2 className="text-xl font-extrabold pt-4">Bio-code verification ({data.verify.length})</h2>
+          <p className="text-sm text-muted-foreground">Open their profile, check the code is in the bio, then confirm.</p>
+          <div className="space-y-2">{data.verify.map((v) => (
+            <div key={v.key} className="bg-white border rounded-2xl p-3 flex flex-col sm:flex-row sm:items-center gap-2 text-sm">
+              <p className="flex-1">@{v.handle} · <b>{v.slot}</b> @{v.social} · code <b className="font-mono">{v.code}</b></p>
+              <div className="flex gap-2">
+                <button onClick={async () => { await fetch("/api/admin", { method: "POST", headers: { "x-admin-pass": pass, "Content-Type": "application/json" }, body: JSON.stringify({ verifyKey: v.key, decision: "approved" }) }); load() }} className="px-3 py-1.5 rounded-full bg-emerald-600 text-white font-bold">Confirm</button>
+                <button onClick={async () => { await fetch("/api/admin", { method: "POST", headers: { "x-admin-pass": pass, "Content-Type": "application/json" }, body: JSON.stringify({ verifyKey: v.key, decision: "rejected" }) }); load() }} className="px-3 py-1.5 rounded-full bg-rose-100 text-rose-800 font-bold">Reject</button>
+              </div>
+            </div>))}</div>
           <h2 className="text-xl font-extrabold pt-4">Campaign listing requests ({data.listings.length})</h2>
           <div className="space-y-2">{data.listings.map((l, i) => <div key={i} className="bg-white border rounded-2xl p-3 text-sm"><p className="font-extrabold">{l.brand} · {l.title} <span className="text-muted-foreground font-normal">({l.type})</span></p><p>{l.email} · {l.url} · {l.platforms} · budget: {l.budget}</p><p className="text-muted-foreground whitespace-pre-wrap">{l.details}</p><p className="text-xs text-muted-foreground">{l.at}</p></div>)}</div>
         </>

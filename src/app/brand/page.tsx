@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { AppShell } from "@/components/layout/AppShell"
 import { PayBanner } from "@/components/ui/PayBanner"
 import { WHOP } from "@/config/site"
@@ -18,6 +18,7 @@ export default function BrandPage() {
     if (d.ok) setState("done")
     else { setState("error"); setErr(d.error === "store_not_configured" ? "The listing inbox is being connected. Email the team or try again soon." : d.error === "missing_fields" ? "Add your brand name and a valid email." : "Couldn't send. Try again.") }
   }
+  useEffect(() => { const q = new URLSearchParams(window.location.search); const v = q.get("type") || (q.get("tier") ? `sponsor-${q.get("tier")}` : ""); const el = document.getElementById("lc-type") as HTMLSelectElement | null; if (v && el) el.value = v }, [])
   const field = "w-full px-3 py-2 border rounded-xl bg-white"
   return (
     <AppShell>
@@ -35,8 +36,8 @@ export default function BrandPage() {
             <input name="email" type="email" required placeholder="Contact email" className={field} />
             <input name="url" placeholder="Website or main social link" className={field} />
             <input name="title" placeholder="Campaign title (e.g. Clip our launch)" className={field} />
-            <select name="type" className={field} defaultValue="clipping">
-              <option value="clipping">Clipping campaign</option><option value="ugc">UGC</option><option value="contest">Art / meme contest</option><option value="remix">Remix / sound challenge</option><option value="quest">Follow quest</option>
+            <select name="type" className={field} id="lc-type" defaultValue="clipping">
+              <option value="clipping">Clipping campaign</option><option value="ugc">UGC</option><option value="contest">Art / meme contest</option><option value="remix">Remix / sound challenge</option><option value="quest">Follow quest</option><option value="mystery-box">Mystery Box Friday sponsor</option><option value="sponsor-starter">Sponsor tier: Starter</option><option value="sponsor-featured">Sponsor tier: Featured</option><option value="sponsor-headline">Sponsor tier: Headline</option>
             </select>
             <input name="platforms" placeholder="Platforms (TikTok, Reels, Shorts, X…)" className={field} />
             <input name="budget" placeholder="Budget or prize idea (optional)" className={field} />

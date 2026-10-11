@@ -44,7 +44,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       t: (path, vars) => {
         let s = lookup(m, path) ?? lookup(messages.en, path) ?? path
         if (vars) {
-          for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, String(v))
+          for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, typeof v === "number" ? v.toLocaleString("en-US") : String(v))
         }
         return s
       }

@@ -1,14 +1,17 @@
+import { RULES } from "@/config/site"
+
+/** Mirrors src/config/site.ts (edit values there). */
 export const POINTS = {
-  onboard: 80,
-  role: 10,
-  goal: 5,
-  join: 50,
-  submit: 100,
-  resubmit: 25,
-  publish: 75,
-  follow: 25,
-  share: 20,
-  checkin: 15
+  onboard: RULES.onboard,
+  role: 1000,
+  goal: 500,
+  join: RULES.join,
+  submit: RULES.submit,
+  resubmit: 2500,
+  publish: RULES.publish,
+  follow: RULES.follow,
+  share: RULES.share,
+  checkin: RULES.checkin
 } as const
 
 export type QuestNet = "x" | "instagram" | "tiktok"
