@@ -8,6 +8,11 @@ import { CampaignGrid } from "@/components/campaigns/CampaignGrid"
 import { CampaignModal } from "@/components/modals/CampaignModal"
 import { useI18n } from "@/i18n/LanguageProvider"
 import { PayBanner } from "@/components/ui/PayBanner"
+import { FeaturedOffers } from "@/components/sb/FeaturedOffers"
+import { BrandChips } from "@/components/sb/BrandChips"
+import { LoginPanel } from "@/components/sb/LoginPanel"
+import { SetupNotice } from "@/components/sb/SetupNotice"
+import { FounderCard } from "@/components/sb/FounderCard"
 
 export default function Home() {
   const { t } = useI18n()
@@ -20,8 +25,13 @@ export default function Home() {
           <h1 className="text-2xl sm:text-3xl font-extrabold leading-tight">{t("tagline")}</h1>
         </div>
         <PayBanner />
+        <SetupNotice />
+        <LoginPanel />
+        <FeaturedOffers />
+        <FounderCard />
         <EasyQuests />
         <FilterBar />
+        <BrandChips />
         <div className="flex items-center gap-3">
           <div className="flex-1 h-px bg-border" />
           <span className="text-xs font-extrabold text-primary uppercase tracking-wide">{t("home.starting")}</span>

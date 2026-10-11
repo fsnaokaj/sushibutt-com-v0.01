@@ -19,6 +19,8 @@ import { beltTag, gemForRank } from "@/data/leaderboard"
 import { briefs } from "@/data/briefs"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { CampaignExtras } from "@/components/sb/CampaignExtras"
+import { useAccount } from "@/lib/client/account"
 
 export function CampaignBody({ c }: { c: Campaign }) {
   const { t } = useI18n()
@@ -30,7 +32,10 @@ export function CampaignBody({ c }: { c: Campaign }) {
   const clips = useAppStore((s) => s.clips)
   const [tab, setTab] = useState<"Overview" | "Leaderboard" | "Analytics">("Overview")
   const [url, setUrl] = useState("")
-  const joined = user?.joinedIds.includes(c.id)
+  const acct = useAccount()
+  const serverMode = !!acct.state
+  const [srvJoined, setSrvJoined] = useState(false)
+  const joined = serverMode ? srvJoined || !!acct.state?.claims.includes(`join:${c.id}`) : user?.joinedIds.includes(c.id)
   const mine = clips.filter((clip) => clip.campaignId === c.id)
   const needsUrl = c.id !== "follow-quest"
   const status = openStatus(c)
@@ -50,6 +55,10 @@ export function CampaignBody({ c }: { c: Campaign }) {
   }, [refreshClips])
 
   const onJoin = () => {
+    if (serverMode) {
+      acct.call("/api/me", { action: "quest", kind: "join", id: c.id }).then(() => setSrvJoined(true))
+      return
+    }
     if (!user) {
       router.push("/join")
       return
@@ -66,7 +75,7 @@ export function CampaignBody({ c }: { c: Campaign }) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="space-y-5">
-        <div className="flex items-center gap-2 text-sm font-bold text-primary">🍣 {c.agency} ★</div>
+        <div className="flex items-center gap-2 text-sm font-bold text-primary">{c.brand && c.brand !== "SushiButt" ? "★" : "🍣"} {c.agency} ★{c.points ? ` · +${c.points} ★ per approved ${c.kind === "art" ? "win" : "clip"}` : ""}</div>
         <h1 className="text-2xl font-extrabold">{campaignTitle(c, t)}</h1>
         <span className={cn("inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wide", statusTone(status))}>
           {t(`filters.${status}`)}
@@ -83,7 +92,7 @@ export function CampaignBody({ c }: { c: Campaign }) {
             {joinLabel}
           </button>
         </div>
-        {joined && needsUrl && (
+        {!serverMode && joined && needsUrl && (
           <div className="space-y-2">
             {mine.map((clip) => (
               <div key={clip.id} className="rounded-2xl border p-3 bg-white text-sm space-y-1">
@@ -132,7 +141,8 @@ export function CampaignBody({ c }: { c: Campaign }) {
         {tab === "Overview" && (
           <div className="space-y-4">
             <CampaignBrief id={c.id} />
-            {c.id === "follow-quest" || c.id === "daily-belt" ? <EasyQuests compact /> : null}
+            <CampaignExtras c={c} joined={!!joined} />
+            {c.id === "follow-quest" || c.id === "daily-belt" || c.kind === "follow" || c.kind === "daily" ? <EasyQuests compact /> : null}
             <div>
               <h3 className="font-extrabold mb-2 text-sm">{t("campaign.earnings")}</h3>
               <Badge variant="cpm">{rateLabel(c, t)}</Badge>

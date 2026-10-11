@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
+import { LiveEarnings } from "@/components/sb/AccountPanels"
 import { AppShell } from "@/components/layout/AppShell"
 import { useAllCampaigns, useAppStore } from "@/hooks/useStore"
 import { useI18n } from "@/i18n/LanguageProvider"
@@ -28,6 +29,7 @@ export default function EarningsPage() {
   return (
     <AppShell>
       <div className="max-w-5xl mx-auto px-4 py-6 space-y-6">
+        <LiveEarnings />
         <div>
           <h1 className="text-2xl font-extrabold">{t("earnings.title")}</h1>
           <p className="text-sm text-muted-foreground">{t("earnings.subtitle")}</p>

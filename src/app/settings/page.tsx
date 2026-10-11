@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { LinkedAccounts } from "@/components/sb/AccountPanels"
 import { AppShell } from "@/components/layout/AppShell"
 import { AvatarMark } from "@/components/profile/AvatarMark"
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher"
@@ -33,6 +34,7 @@ export default function SettingsPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
+        <LinkedAccounts />
         <h1 className="text-2xl font-extrabold">{t("settings.title")}</h1>
         <div className="border rounded-2xl p-4 bg-white space-y-3">
           <h2 className="font-extrabold text-sm">{t("settings.language")}</h2>

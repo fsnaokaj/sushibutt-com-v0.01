@@ -1,6 +1,7 @@
 "use client"
 
 import { AppShell } from "@/components/layout/AppShell"
+import { LiveLeaderboard } from "@/components/sb/AccountPanels"
 import { boardSeats, beltTag, gemForRank } from "@/data/leaderboard"
 import { useAppStore } from "@/hooks/useStore"
 import { useI18n } from "@/i18n/LanguageProvider"
@@ -38,6 +39,7 @@ export default function LeaderboardPage() {
   return (
     <AppShell>
       <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
+        <LiveLeaderboard />
         <div>
           <h1 className="text-2xl font-extrabold">{t("board.title")}</h1>
           <p className="text-sm text-muted-foreground">{t("board.subtitle")}</p>

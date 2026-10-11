@@ -5,6 +5,7 @@ import { useAppStore } from "@/hooks/useStore"
 import { useI18n } from "@/i18n/LanguageProvider"
 import { useRouter } from "next/navigation"
 import { cn } from "@/utils"
+import { useAccount } from "@/lib/client/account"
 
 const NET: Record<string, string> = { x: "X", instagram: "Instagram", tiktok: "TikTok" }
 
@@ -12,12 +13,20 @@ export function EasyQuests({ compact }: { compact?: boolean }) {
   const { t } = useI18n()
   const router = useRouter()
   const user = useAppStore((s) => s.user)
-  const claimed = useAppStore((s) => s.claimedQuests)
+  const localClaimed = useAppStore((s) => s.claimedQuests)
   const claimQuest = useAppStore((s) => s.claimQuest)
   const checkin = useAppStore((s) => s.checkin)
-  const checkedIn = user?.lastCheckin === new Date().toISOString().slice(0, 10)
+  const acct = useAccount()
+  const srv = acct.state
+  const claimed = srv ? Object.fromEntries(srv.claims.map((k) => [k.replace(/^follow:/, "").replace(/^instagram-/, "ig-").replace(/^tiktok-/, "tt-").replace(/^share$/, "share-belt"), true])) : localClaimed
+  const checkedIn = srv ? srv.checkedInToday : user?.lastCheckin === new Date().toISOString().slice(0, 10)
 
   const run = (id: string, pts: number, href: string) => {
+    if (srv) {
+      window.open(href, "_blank", "noopener,noreferrer")
+      acct.call("/api/me", { action: "quest", kind: id === "share-belt" ? "share" : "follow", id })
+      return
+    }
     if (!user) {
       router.push("/join")
       return
@@ -38,6 +47,7 @@ export function EasyQuests({ compact }: { compact?: boolean }) {
           type="button"
           disabled={checkedIn}
           onClick={() => {
+            if (srv) { acct.call("/api/me", { action: "quest", kind: "checkin" }); return }
             if (!user) {
               router.push("/join")
               return

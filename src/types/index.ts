@@ -78,6 +78,11 @@ export interface Campaign {
   earnings?: Earnings[]
   totalViews?: number
   resourcesUrl?: string
+  brand?: string
+  kind?: "follow" | "daily" | "launch" | "art" | "remix"
+  endsAt?: string
+  points?: number
+  prizeLabel?: string
 }
 
 export interface FilterState {
@@ -87,6 +92,7 @@ export interface FilterState {
   platforms: Platform[]
   sortBy: SortBy
   status: StatusFilter
+  brand?: string
 }
 
 export interface ModalState {

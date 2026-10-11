@@ -1,6 +1,7 @@
 "use client"
 
 import { AppShell } from "@/components/layout/AppShell"
+import { LiveNotifications } from "@/components/sb/AccountPanels"
 import { useI18n } from "@/i18n/LanguageProvider"
 
 export default function NotificationsPage() {
@@ -14,6 +15,7 @@ export default function NotificationsPage() {
   return (
     <AppShell>
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
+        <LiveNotifications />
         <h1 className="text-2xl font-extrabold">{t("notify.title")}</h1>
         {items.map(([title, desc, emoji]) => (
           <div key={title} className="flex gap-3 p-4 border rounded-2xl bg-white">

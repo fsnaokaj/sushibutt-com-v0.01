@@ -132,3 +132,16 @@ export const briefs: Record<string, CampaignBrief> = {
     submit: "Public URL posted today. Caption must tag the person you clipped."
   }
 }
+
+
+import { BRAND_CAMPAIGNS, toBrief } from "@/config/campaigns"
+for (const c of BRAND_CAMPAIGNS) briefs[c.id] = toBrief(c)
+
+// TikTok sources for the original opens (brand / launch / podcast content only)
+for (const id of ["launch-film", "official-open", "follow-quest", "daily-belt"]) {
+  const b = briefs[id]
+  if (!b) continue
+  for (const s of [{ label: "TikTok · @poshgoof", href: "https://www.tiktok.com/@poshgoof" }, { label: "TikTok · @sushibuttshelbie", href: "https://www.tiktok.com/@sushibuttshelbie" }])
+    if (!b.sources.some((x) => x.href === s.href)) b.sources.push(s)
+}
+briefs["launch-film"]?.donts.push("Only use Shelbie's brand, launch, fashion, fragrance, astrology or podcast posts — skip older drama, politics or gambling-themed posts.")

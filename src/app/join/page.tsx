@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
+import { AccountSummary } from "@/components/sb/AccountPanels"
 import { useRouter } from "next/navigation"
 import { AppShell } from "@/components/layout/AppShell"
 import { AvatarMark } from "@/components/profile/AvatarMark"
@@ -129,6 +130,7 @@ export default function JoinPage() {
   return (
     <AppShell>
       <div className="max-w-lg mx-auto px-4 py-10 space-y-6">
+        <AccountSummary />
         <div>
           <p className="text-4xl mb-2">🍣 ★</p>
           <h1 className="text-2xl font-extrabold">{t("auth.title")}</h1>

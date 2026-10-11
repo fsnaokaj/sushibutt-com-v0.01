@@ -17,9 +17,12 @@ export function useCampaigns() {
     if (filters.search) {
       const q = filters.search.toLowerCase()
       list = list.filter((c) => {
-        const title = t(`copy.${c.id}.title`).toLowerCase()
+        const title = (c.customTitle || t(`copy.${c.id}.title`)).toLowerCase()
         return title.includes(q) || c.agency.toLowerCase().includes(q) || c.id.toLowerCase().includes(q)
       })
+    }
+    if (filters.brand && filters.brand !== "All") {
+      list = list.filter((c) => (c.brand || "SushiButt") === filters.brand)
     }
     if (filters.category !== "All Categories") {
       list = list.filter((c) => c.category === filters.category)

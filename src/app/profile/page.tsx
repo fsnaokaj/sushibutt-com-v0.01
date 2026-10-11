@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { AccountSummary } from "@/components/sb/AccountPanels"
 import Link from "next/link"
 import { Share2 } from "lucide-react"
 import { AppShell } from "@/components/layout/AppShell"
@@ -27,6 +28,7 @@ export default function ProfilePage() {
     return (
       <AppShell>
         <div className="max-w-md mx-auto px-4 py-16 text-center space-y-4">
+          <div className="text-left"><AccountSummary /></div>
           <AvatarMark id="sushi" size={88} />
           <h1 className="text-2xl font-extrabold">{t("profile.title")}</h1>
           <p className="text-sm text-muted-foreground">{t("profile.guest")}</p>
@@ -53,6 +55,7 @@ export default function ProfilePage() {
   return (
     <AppShell>
       <div className="max-w-lg mx-auto px-4 py-5 space-y-5">
+        <AccountSummary />
         <div className="flex items-start justify-between">
           <AvatarMark id={user.avatarId} size={92} />
           <button type="button" onClick={share} className="w-9 h-9 rounded-full border bg-white flex items-center justify-center" aria-label={t("profile.share")}>

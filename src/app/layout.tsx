@@ -2,11 +2,13 @@ import type { Metadata, Viewport } from "next"
 import { Bebas_Neue, Nunito } from "next/font/google"
 import "@/styles/globals.css"
 import { LanguageProvider } from "@/i18n/LanguageProvider"
+import { AccountProvider } from "@/lib/client/account"
 
 const nunito = Nunito({ subsets: ["latin", "latin-ext", "cyrillic"], weight: ["500", "700", "800"] })
 const display = Bebas_Neue({ subsets: ["latin"], weight: "400", variable: "--font-display" })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sushibutt.com"),
   title: "SushiButt.com — Clip. Compete. Build.",
   description: "Clipping, contests, quests, and vibe jobs for creators, streamers, founders, and everyone on the belt. Points and prizes now. Payments coming soon.",
   applicationName: "SushiButt",
@@ -41,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${nunito.className} ${display.variable}`}>
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider><AccountProvider>{children}</AccountProvider></LanguageProvider>
       </body>
     </html>
   )

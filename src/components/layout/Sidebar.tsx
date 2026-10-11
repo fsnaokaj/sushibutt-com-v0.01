@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LayoutGrid, User, Settings, Bell, TrendingUp, Trophy, Gift, LogIn, Plus } from "lucide-react"
+import { LayoutGrid, User, Settings, Bell, TrendingUp, Trophy, Gift, LogIn, Plus, Tag, Disc3 } from "lucide-react"
 import { cn } from "@/utils"
 import { useI18n } from "@/i18n/LanguageProvider"
 import { useAppStore } from "@/hooks/useStore"
@@ -18,6 +18,8 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
 
   const nav = [
     { icon: LayoutGrid, label: t("nav.campaigns"), href: "/" },
+    { icon: Tag, label: "Offers", href: "/offers" },
+    { icon: Disc3, label: "Welcome Spin", href: "/spin" },
     { icon: Trophy, label: t("nav.leaderboard"), href: "/leaderboard" },
     { icon: Gift, label: t("nav.prizes"), href: "/prizes" },
     { icon: TrendingUp, label: t("nav.earnings"), href: "/earnings" },

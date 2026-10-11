@@ -1,5 +1,6 @@
 import { Campaign } from "@/types"
 import { withBasePath } from "@/utils"
+import { BRAND_CAMPAIGNS, toCampaign } from "@/config/campaigns"
 
 export const seedCampaigns: Campaign[] = [
   {
@@ -78,6 +79,10 @@ export const seedCampaigns: Campaign[] = [
     resourcesUrl: "https://x.com/sushibuttshelbie"
   }
 ]
+
+/** Brand campaigns, generated from src/config/campaigns.ts */
+for (const c of BRAND_CAMPAIGNS) seedCampaigns.push(toCampaign(c))
+for (const c of seedCampaigns) c.brand ||= "SushiButt"
 
 for (const campaign of seedCampaigns) {
   campaign.bannerUrl = withBasePath(campaign.bannerUrl)
