@@ -56,13 +56,14 @@ export const OFFERS: Offer[] = [
   {
     id: "wine-detention",
     brand: "Wine Detention",
-    title: "Launch weekend · 8 lockers",
-    price: "$35–$350",
-    blurb: "Eight wine lockers from Patio Rosé to Prestige Cuvée, plus gift cards with an average +35% bonus.",
-    bullets: ["Patio Rosé $35", "Weeknight Bubbles $53", "Napa Cab Lane $88", "Prestige Cuvée $350", "Gift cards avg +35% bonus"],
-    url: "https://winedetention.com/",
-    art: "/offers/wd-hero.png",
-    badge: "Launch weekend",
+    title: "OG VIP Mystery Drops",
+    price: "from $350",
+    blurb: "VIP early access for the bad boys and bad girls in detention. Sealed mystery drops for the whitelist and OGs, revealed after checkout.",
+    bullets: ["Founding Members: OG VIP Mystery Drop $350 · most popular", "Let's Pop: Champagne After Hours Special $888", "The Private Reserve: Bougie Luxury Stash $1,750", "OG Flash Deal: All Three $2,738", "Gift cards $175 · $350 · $500 · $1,000"],
+    url: "https://winedetention.com/vip",
+    alt: { label: "Gift cards", url: "https://winedetention.com/#/gifts" },
+    art: "/promo-src/wd-vip-drops.png",
+    badge: "VIP EARLY ACCESS",
     ageGate: "21+"
   },
   {

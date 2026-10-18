@@ -14,6 +14,17 @@ const nextConfig = {
         assetPrefix: basePath
       }
     : {}),
+  ...(isGithubPages
+    ? {}
+    : {
+        async redirects() {
+          return [
+            { source: "/campaigns/wd-launch", destination: "/campaigns/wd-vip-drop", permanent: false },
+            { source: "/campaigns/wd-label", destination: "/campaigns/wd-champagne-meme", permanent: false },
+            { source: "/campaigns/wd-remix", destination: "/campaigns/wd-vip-drop", permanent: false }
+          ]
+        }
+      }),
   images: {
     unoptimized: isGithubPages,
     dangerouslyAllowSVG: true,

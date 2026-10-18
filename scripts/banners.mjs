@@ -32,7 +32,7 @@ const img = (p) => asset(p)
 const THEME = {
   SushiButt: { bg: ["#ff4fa3", "#ff8a5c", "#ffd84d"], ink: "#3b0a24", hi: "#ffffff", sticker: "#ffe14d", stickerInk: "#3b0a24", font: "Luckiest Guy", word: "SUSHIBUTT", mark: "🍣" },
   PoshGoof: { bg: ["#a78bfa", "#f472b6", "#fde68a"], ink: "#2e1250", hi: "#ffffff", sticker: "#fff1a8", stickerInk: "#2e1250", font: "Paytone One", word: "POSHGOOF", mark: "✨" },
-  "Wine Detention": { bg: ["#e11d48", "#fb7185", "#fed7aa"], ink: "#4a0b1e", hi: "#ffffff", sticker: "#fde047", stickerInk: "#4a0b1e", font: "Anton", word: "DETENTION", mark: "🍷" },
+  "Wine Detention": { bg: ["#f43f5e", "#fbbf77", "#fef3c7"], ink: "#4a0b1e", hi: "#ffffff", sticker: "#fde047", stickerInk: "#4a0b1e", font: "Anton", word: "DETENTION", mark: "🍷" },
   PuckGold: { bg: ["#2563eb", "#38bdf8", "#e0f2fe"], ink: "#0b1f4d", hi: "#ffffff", sticker: "#facc15", stickerInk: "#0b1f4d", font: "Anton", word: "PUCKGOLD", mark: "🏒", accent: "#e11d48" },
   Fartnatics: { bg: ["#8fd5f4", "#d7f2f9", "#c9ef8a"], ink: "#0f3a4c", hi: "#ffffff", sticker: "#f58a2f", stickerInk: "#ffffff", font: "Bricolage Grotesque", word: "fartnatics", mark: "☁️", accent: "#12808a" }, // 2026 brand kit
   "Pack Rips": { bg: ["#facc15", "#fb923c", "#60a5fa"], ink: "#1e1b4b", hi: "#ffffff", sticker: "#ffffff", stickerInk: "#1e1b4b", font: "Bungee", word: "RIP NIGHT", mark: "🃏" },
@@ -52,7 +52,8 @@ function artFor(j) {
   if (j.brand === "PuckGold") return [P("promo-src/pg-jersey-geckz.png", 0, 22, 74, -7, { card: true }), P("promo-src/pg-logo-stacked.png", 52, -4, 46, 6), P("promo-src/pg-puck-sticker.png", 50, 56, 42, 14)]
   if (id === "fn-giveaway") return [P("promo-src/fn-party-prizes.png", -4, 6, 108, -3), E("🎉", 0, -2, 22, -14), E("✨", 78, -4, 16, 10)]
   if (j.brand === "Fartnatics") return [P("promo-src/fn-kit-card.png", 0, 30, 78, -6, { card: true }), P("promo-src/fn-logo-mark.png", 44, -6, 54, 8), E(id.includes("giveaway") ? "🎁" : "🫧", 2, 2, 20, -12)]
-  if (j.brand === "Wine Detention") return [P("offers/wd-hero.png", 0, 10, 70, -7, { card: true }), P("offers/wd-bubbles.png", 42, 40, 56, 8, { card: true }), E("🍾", 62, -4, 22, 18)]
+  if (j.brand === "Wine Detention") return [P("promo-src/wd-vip-drops.png", -6, 0, 112, -2), E(id.includes("champagne") ? "🍾" : id === "wd-follow" ? "🎟️" : "🎉", 74, -4, 20, 14)]
+  if (false) return [P("offers/wd-hero.png", 0, 10, 70, -7, { card: true }), P("offers/wd-bubbles.png", 42, 40, 56, 8, { card: true }), E("🍾", 62, -4, 22, 18)]
   if (j.brand === "PoshGoof") return [E("♈", 4, 4, 18, -14), E("♌", 70, 2, 16, 12), E("♓", 2, 64, 16, 8), E(id === "po-sweet" ? "🍰" : id === "po-horoscope" ? "🔮" : "👗", 22, 16, 50, -6), E(id === "po-sweet" ? "🍒" : "✨", 62, 52, 28, 14)]
   if (j.brand === "Pack Rips") return [CARD(6, 14, 40, -14, "?", 200), CARD(32, 4, 40, 0, "CHASE", 290), CARD(58, 16, 40, 14, "?", 40), E(id.includes("spin") ? "🎰" : id.includes("guess") ? "🔮" : "⚡", 36, 62, 26, -8)]
   if (j.brand === "Glow Up") { const m = { "gu-teeth-7day": "🦷", "gu-hot-towel": "🪒", "gu-dupe-legit": "💄", "gu-grwm": "🪞", "gu-pr-box": "📦" }; return [E(m[id] || "💅", 16, 10, 56, -8), E("✨", 66, 4, 22, 14), E("💖", 4, 64, 20, -10)] }

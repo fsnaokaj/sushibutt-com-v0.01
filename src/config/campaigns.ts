@@ -303,36 +303,28 @@ export const BRAND_CAMPAIGNS: BrandCampaign[] = [
   },
   // ---------- Wine Detention ----------
   {
-    id: "wd-follow", brand: "Wine Detention", kind: "follow", title: "Follow Wine Detention", status: "live", category: "Lifestyle",
-    platforms: ["twitter", "instagram", "tiktok"], points: 25_00, kicker: "FOLLOW · 21+",
+    id: "wd-vip-drop", brand: "Wine Detention", kind: "launch", title: "Clip the VIP Drop reveal", status: "live", category: "Lifestyle",
+    platforms: ["tiktok", "instagram", "youtube"], points: 150_00, kicker: "VIP EARLY ACCESS · 21+",
+    who: "Clippers and editors with a 21+ audience", length: "8–25 seconds", hashtag: "#WineDetentionVIP",
+    mission: "Bad boys and bad girls, detention just got bougie. Clip the sealed OG VIP Mystery Drops: Founding Members: OG VIP Mystery Drop ($350, most popular), Let's Pop: Champagne After Hours Special ($888) and The Private Reserve: Bougie Luxury Stash ($1,750). Also: the OG Flash Deal: All Three bundle ($2,738) and gift cards ($175–$1,000). Send people to winedetention.com/vip.",
+    sources: [{ label: "winedetention.com/vip · VIP drops", href: "https://winedetention.com/vip" }, { label: "winedetention.com · gift cards", href: "https://winedetention.com/#/gifts" }, ...src(WD)],
+    hook: "“What's in the $350 box?” — sealed box, tease, never reveal.",
+    extraDos: ["Put “21+” on screen and in the caption.", "Use the real prices from winedetention.com/vip."],
+    extraDonts: ["Don't guess or invent what's inside a drop.", "No credit math, odds or ‘win’ claims.", "No minors, no drinking-and-driving, no ‘get wasted’ messaging."]
+  },
+  {
+    id: "wd-follow", brand: "Wine Detention", kind: "follow", title: "Follow @winedetention", status: "live", category: "Lifestyle",
+    platforms: ["twitter", "instagram", "tiktok"], points: 25_00, kicker: "JOIN THE WHITELIST · 21+",
     who: "Everyone 21+", length: "—", hashtag: "#WineDetention",
-    mission: "Follow Wine Detention on X, Instagram and TikTok. One claim per follow. 21+ only.", sources: src(WD)
+    mission: "Follow @winedetention on X, Instagram and TikTok to catch every VIP Mystery Drop first. One claim per follow. 21+ only.", sources: src(WD)
   },
   {
-    id: "wd-launch", brand: "Wine Detention", kind: "launch", title: "Clip the Wine Detention launch", status: "live", category: "Lifestyle",
-    platforms: ["tiktok", "instagram", "youtube"], points: 150_00, kicker: "LAUNCH WEEKEND",
-    who: "Clippers and editors with a 21+ audience", length: "8–25 seconds", hashtag: "#WineDetentionLaunch",
-    mission: "Clip the Wine Detention launch weekend: eight lockers from Patio Rosé ($35) to Prestige Cuvée ($350), plus gift cards averaging a +35% bonus. Send people to winedetention.com.",
-    sources: [{ label: "winedetention.com · lockers", href: "https://winedetention.com/" }, ...src(WD)],
-    hook: "“$35 for a whole locker of rosé?” — price first, then the locker.",
-    extraDos: ["Put “21+” on screen and in the caption.", "Use the real prices from the site."],
-    extraDonts: ["No minors, no drinking-and-driving, no ‘get wasted’ messaging.", "No invented discounts or health claims."]
-  },
-  {
-    id: "wd-label", brand: "Wine Detention", kind: "art", title: "Design a Wine Detention locker label", status: "live", category: "Lifestyle",
-    platforms: ["instagram", "twitter"], points: 400_00, kicker: "LABEL ART CUP · 21+",
-    who: "Designers and illustrators, 21+", length: "One image, label or poster", hashtag: "#WineDetentionArt",
-    mission: "Design a label or poster for one of the eight Wine Detention lockers (Weeknight Bubbles, Patio Rosé, Napa Cab Lane, Prestige Cuvée…). Fan votes plus an admin pick choose the winners.",
-    sources: [{ label: "winedetention.com", href: "https://winedetention.com/" }, ...src(WD)], endsAt: "2026-10-31T23:59:00-07:00",
-    extraDonts: ["No imagery aimed at minors.", "Don't copy real wine labels."]
-  },
-  {
-    id: "wd-remix", brand: "Wine Detention", kind: "remix", title: "Wine Detention pour-sound remix", status: "upcoming", category: "Music",
-    platforms: ["tiktok", "instagram"], points: 120_00, kicker: "SOUND CHALLENGE · 21+",
-    who: "Producers, editors and remixers, 21+", length: "7–15 seconds", hashtag: "#DetentionPour",
-    mission: "Remix a cork-pop and pour into a beat drop, then cut it over Wine Detention locker art. Opens after launch weekend.",
-    sources: [{ label: "winedetention.com", href: "https://winedetention.com/" }, ...src(WD)],
-    extraDonts: ["No copyrighted songs you don't have rights to."]
+    id: "wd-champagne-meme", brand: "Wine Detention", kind: "art", title: "Champagne After Hours meme contest", status: "live", category: "Lifestyle",
+    platforms: ["instagram", "twitter", "tiktok"], points: 400_00, kicker: "MEME CONTEST · 21+",
+    who: "Meme makers, designers and editors, 21+", length: "One meme, image or short clip", hashtag: "#ChampagneAfterHours",
+    mission: "Detention lets out late and the bubbles stay on. Make the best meme for Let's Pop: Champagne After Hours Special: bad kids, hall monitors, pop-the-cork energy. Fan votes plus an admin pick choose the winners. Free to enter, no purchase needed.",
+    sources: [{ label: "winedetention.com/vip", href: "https://winedetention.com/vip" }, ...src(WD)], endsAt: "2026-10-31T23:59:00-07:00",
+    extraDonts: ["No imagery aimed at minors.", "No drunk-driving or excessive-drinking jokes.", "Don't copy real wine or champagne labels."]
   },
   // ---------- PuckGold ----------
   {

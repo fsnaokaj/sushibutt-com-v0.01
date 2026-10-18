@@ -4,13 +4,13 @@ import Link from "next/link"
 import { useCallback, useEffect, useRef, useState } from "react"
 
 const SLIDES = [
+  { art: "offer-wine-detention", href: "/campaigns/wd-vip-drop", alt: "Wine Detention OG VIP Mystery Drops from $350 (21+)" },
   { art: "offer-puckgold-og", href: "/campaigns/pg-og-whop", alt: "PuckGold $36 OG Gold Puck + 1-year Premium League Pass" },
   { art: "offer-puckgold-premium", href: "/campaigns/pg-premium", alt: "Premium PuckGold membership — League Pass" },
   { art: "offer-puckgold-giveaway", href: "/campaigns/pg-giveaway", alt: "PuckGold Fan Zone giveaway" },
   { art: "fn-giveaway", href: "/campaigns/fn-giveaway", alt: "Fartnatics giveaway" },
   { art: "mb-friday", href: "/campaigns/mb-friday", alt: "Mystery Box Friday" },
   { art: "pg-yt-shorts", href: "/campaigns/pg-yt-shorts", alt: "PuckGold YouTube Shorts clip campaign" },
-  { art: "offer-wine-detention", href: "/campaigns/wd-launch", alt: "Clip the Wine Detention launch (21+)" }
 ]
 
 export function HeroCarousel() {
